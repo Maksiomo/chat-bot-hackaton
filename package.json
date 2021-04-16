@@ -1,0 +1,22 @@
+{
+  "name": "chat_bot_hakathon",
+  "version": "0.0.1",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "maxiomo",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "ws": "^7.4.4"
+  },
+  "devDependencies": {
+    "webpack": "^5.24.0",
+    "webpack-dev-middleware": "^4.1.0",
+    "webpack-hot-middleware": "^2.25.0"
+  }
+}
