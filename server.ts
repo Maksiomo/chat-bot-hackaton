@@ -10,6 +10,9 @@ const defaultMsg: string = "click recieved";
 
 const test = express();
 
+let idPool: string[];
+let type:string;
+
 test.use(cors());
 
 const server = http.createServer(test);
@@ -34,6 +37,18 @@ wsServer.on('connection', function(socket) {
     socket.on('message', function(message: string) {
         var data = JSON.parse(message);
 
+        switch (data.buttonId) {
+            case 'siteNavigation' : {
+                idPool= ["1", "2", "3", "4", "5", "6"];
+                type = "changeButtons";
+                util.createResponse(idPool, type, data.token);
+            }
+
+            case 'faq' : {
+
+            }
+        }
+
         let response = {
             type: "basicResponce",
             text: defaultMsg,
@@ -48,5 +63,23 @@ wsServer.on('connection', function(socket) {
         
     });
 
-})
+    
+    const util ={
+        createResponse: (idPool:string[], type: string, connectionToken: string) => {
+            let response = {
+                msgType: type,
+                data: [],
+                token: connectionToken
+            }
+            for (const id of idPool) {
+                response.data.push(id);
+            }
+        
+            socket.send(response);
+            }
+    };
 
+
+    
+
+})
