@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        #chat {
+            overflow: auto;
+            width: 250px;
+            height: 500px;
+            padding: 5px;
+            border: solid 1px black;
+        } 
+        .userMessage {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 3px;
+            padding: 5px;
+            margin: 2px 0;
+        }
+        .botMessage {
+            border: 2px solid #ccc;
+            background-color: #dfdbdb;
+            border-radius: 3px;
+            padding: 5px;
+            margin: 2px 0;
+        }
+        #chat::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        #Time {
+            float: left;
+            color: #999;
+        }
+        #buttonContainer {
+            width: 250px;
+            height: 80px;
+            padding: 5px;
+            border: solid 1px black;
+        }
+        .button{
+            border: 2px solid #ccc;
+            width: 96px;
+            background-color: #dfdbdb;
+            border-radius: 3px;
+            padding: 5px;
+            margin: 2px 0;
+        }
+       </style>
+    <script src="dist/app.js" defer></script>
+</head>
+<body>
+    <div id="chat" class="container">
+
+    </div>
+    <div id="buttonContainer" class="container">
+
+    </div>
+</body>
+</html>
