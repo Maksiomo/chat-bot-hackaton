@@ -93,7 +93,7 @@ class Button{
         const btn: HTMLElement | null = createHTMLButton(this.id, this.content);
         btn?.addEventListener('click', () =>{
             addMessage(this.content, true);
-            addMessage('Responce', true);
+            addMessage('Responce', false);
             if(chatDiv){
                 chatDiv.scroll({
                     top:999999,
