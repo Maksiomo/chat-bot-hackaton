@@ -26,17 +26,17 @@
             padding: 5px;
         } 
         .userMessage {
+            overflow: auto;
             border: 1px solid #97bbffd5;
-            background-color: #97BCFF;
-            height: 40px;
+            background-color: #ABC9FF;
             border-radius: 8px;
             padding: 3px;
             margin: 5px 0;
         }
         .botMessage {
+            overflow: auto;
             border: 1px solid #ccc;
             background-color: #EBEBEB;
-            height: 60px;
             border-radius: 8px;
             padding: 3px;
             margin: 5px 0;
@@ -60,10 +60,10 @@
             padding: 5px;
             background-color: #F2F2F2;
         }
-        .button{
+        .button {
             border: 2px solid #ccc;
             width: 96px;
-            background-color: #97BCFF;
+            background-color: #ABC9FF;
             border-radius: 8px;
             padding: 5px;
             margin: 2px 0;
@@ -72,13 +72,10 @@
     <script src="dist/app.js" defer></script>
 </head>
 <body>
-    <div id="widget" class="container">
-            
-        <div id="header" class="container">
-            
-        </div>        
+    <div id="widget" class="container">            
+        <div id="header" class="container"></div>        
         <div id="chat" class="container"></div>
-        <div id="buttonСontainer" class="container"></div>
+        <div id="buttonContainer" class="container"></div>
     </div>
 </body>
 </html>
