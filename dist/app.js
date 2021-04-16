@@ -9,20 +9,17 @@ function makeGoodTime(int) {
         return '' + int;
     }
 }
-function addUserMessage(message) {
+function addMessage(message, isUser) {
     var newDiv = document.createElement('div');
-    newDiv.setAttribute("class", "container userMessage");
     var date = new Date;
-    newDiv.innerHTML = "<span id=\"Time\">\u0412\u044B " + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span><br><p>" + message + "</p>";
-    if (chatDiv) {
-        chatDiv.appendChild(newDiv);
+    if (isUser) {
+        newDiv.setAttribute("class", "container userMessage");
+        newDiv.innerHTML = "<span id=\"Time\">\u0412\u044B " + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span><br><p>" + message + "</p>";
     }
-}
-function addBotMessage(message) {
-    var newDiv = document.createElement('div');
-    newDiv.setAttribute("class", "container botMessage");
-    var date = new Date;
-    newDiv.innerHTML = "<span id=\"Time\">\u0411\u043E\u0442 " + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span><br><p>" + message + "</p>";
+    else {
+        newDiv.setAttribute("class", "container botMessage");
+        newDiv.innerHTML = "<span id=\"Time\">\u0411\u043E\u0442 " + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span><br><p>" + message + "</p>";
+    }
     if (chatDiv) {
         chatDiv.appendChild(newDiv);
     }
@@ -73,12 +70,24 @@ var Button = /** @class */ (function () {
         this.id = id;
         this.content = content;
     }
+    Button.prototype.getId = function () {
+        return this.id;
+    };
+    Button.prototype.setId = function (id) {
+        this.id = id;
+    };
+    Button.prototype.getContent = function () {
+        return this.content;
+    };
+    Button.prototype.setContent = function (content) {
+        this.content = content;
+    };
     Button.prototype.event = function () {
         var _this = this;
         var btn = createHTMLButton(this.id, this.content);
         btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', function () {
-            addUserMessage(_this.content);
-            addBotMessage('Responce');
+            addMessage(_this.content, true);
+            addMessage('Responce', false);
             if (chatDiv) {
                 chatDiv.scroll({
                     top: 999999,
