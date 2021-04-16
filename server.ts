@@ -31,7 +31,7 @@ wsServer.on('connection', function(socket) {
         console.log("connection established");
     });
 
-    socket.on('message', function(message) {
+    socket.on('message', function(message: string) {
         var data = JSON.parse(message);
 
         let response = {
