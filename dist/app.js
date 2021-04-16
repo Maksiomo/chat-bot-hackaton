@@ -1,6 +1,6 @@
 "use strict";
 var chatDiv = document.getElementById('chat');
-var buttonsDiv = document.getElementById('buttonContainer');
+var buttonsDiv = document.getElementById('buttonСontainer');
 function makeGoodTime(int) {
     if (int < 10) {
         return '0' + int;
@@ -9,14 +9,14 @@ function makeGoodTime(int) {
         return '' + int;
     }
 }
-function addMessage(message, isUser) {
+function addMessage(message, author) {
     var newDiv = document.createElement('div');
     var date = new Date;
-    if (isUser) {
+    if (author === "user") {
         newDiv.setAttribute("class", "container userMessage");
         newDiv.innerHTML = "<span id=\"Time\">\u0412\u044B " + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span><br><p>" + message + "</p>";
     }
-    else {
+    else if (author === "bot") {
         newDiv.setAttribute("class", "container botMessage");
         newDiv.innerHTML = "<span id=\"Time\">\u0411\u043E\u0442 " + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span><br><p>" + message + "</p>";
     }
@@ -86,8 +86,8 @@ var Button = /** @class */ (function () {
         var _this = this;
         var btn = createHTMLButton(this.id, this.content);
         btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', function () {
-            addMessage(_this.content, true);
-            addMessage('Responce', false);
+            addMessage(_this.content, 'user');
+            addMessage('Responce', 'bot');
             if (chatDiv) {
                 chatDiv.scroll({
                     top: 999999,
