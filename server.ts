@@ -1,9 +1,9 @@
-import axios from "axios";
-import ws from "ws";
+import * as axios from "axios";
+import * as ws from "ws";
 import {v4 as uuid} from "uuid";
-import cors from "cors";
-import express from "express";
-import http from "http";
+import * as cors from "cors";
+import * as express from "express";
+import * as http from "http";
 
 let users: any = [];
 const defaultMsg: string = "click recieved";
@@ -28,7 +28,7 @@ const wsServer = new ws.Server({
 wsServer.on('connection', function(socket) {
 
     socket.on('open', function() {
-        
+        console.log("connection established");
     });
 
     socket.on('message', function(message) {
