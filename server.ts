@@ -5,6 +5,9 @@ import cors from "cors";
 import express from "express";
 import http from "http";
 
+let users: any = [];
+const defaultMsg: string = "click recieved";
+
 const test = express();
 
 test.use(cors());
@@ -29,7 +32,16 @@ wsServer.on('connection', function(socket) {
     });
 
     socket.on('message', function(message) {
-        
+        var data = JSON.parse(message);
+
+        let response = {
+            type: "basicResponce",
+            text: defaultMsg,
+            token: data.connectionToken
+        }
+    
+        socket.send(response);
+
     });
 
     socket.on('close', function (){
