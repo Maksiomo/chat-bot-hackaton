@@ -100,9 +100,39 @@ function getContentById(id) {
                 return 'Личный кабинет';
             }
             ;
+        case 'learningPage':
+            {
+                return 'Обучение';
+            }
+            ;
+        case 'projectPage':
+            {
+                return 'Проекты';
+            }
+            ;
         case 'progressPage':
             {
                 return 'Трек развития';
+            }
+            ;
+        case 'mainPage':
+            {
+                return 'Главная страница';
+            }
+            ;
+        case 'webinarPage':
+            {
+                return 'Вебинары';
+            }
+            ;
+        case 'coursesPage':
+            {
+                return 'Курсы';
+            }
+            ;
+        case 'return':
+            {
+                return 'Вернуться';
             }
             ;
         default:
