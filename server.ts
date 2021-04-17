@@ -148,8 +148,8 @@ wsServer.on('connection', function(socket) {
 
                 case 'projectsPage' : { //проекты
                     idPool = ["1", "2", "3"];
-                    type = "Мы не любим сидеть на месте и постоянно проводим ивенты";
-                    message = defaultMsg;
+                    type = "changeButtons";
+                    message = "Мы не любим сидеть на месте и постоянно проводим ивенты";
                     util.createResponse(type, message, idPool);
                     break;
                 }
@@ -188,8 +188,8 @@ wsServer.on('connection', function(socket) {
 
                 case 'progressPage': { //трек развития
                     idPool = ["1", "2", "3", "4"];
-                    type = "Мы поможем вам стать лучше, для этого у нас есть следующие разделы:";
-                    message = defaultMsg;
+                    type = "changeButtons";
+                    message = "Мы поможем вам стать лучше, для этого у нас есть следующие разделы:";
                     util.createResponse(type, message, idPool);
                     break;
                 }
