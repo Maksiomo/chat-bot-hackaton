@@ -157,13 +157,12 @@ var Button = /** @class */ (function () {
             }
 
             let msg = {
-                chatToken: "",
+                type: "",
                 buttonId: ""
             }
 
-            msg.chatToken = "token";
+            msg.type = "message";
             msg.buttonId = _this.id;
-
 
             connection.send(JSON.stringify(msg));
         });
@@ -187,6 +186,10 @@ connection.onopen = function(event) {
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
     //util.getToken();
     console.log("connected");
+    let welcomeMsg = {
+        type: "welcome"
+    }
+    connection.send(JSON.stringify(welcomeMsg));
 };
 /*
 * Слушатель сообщений от сервера
@@ -195,27 +198,27 @@ connection.onopen = function(event) {
 */
 connection.onmessage = function (income) {
 
-    let message = JSON.parse(income.data)
-
-    console.log(message);
-
-    if (message.token === "token") {
+    let message = JSON.parse(income.data);
+    
+    if (message.msgType === "welcome"){
+        addMessage(message.message, 'bot');
+    } else if (message.msgType === "changeButtons") {
         var idPool = [];
         for (var i = 0; i < message.idPool.length; i++) {
             idPool[i] = message.idPool[i];
         };
-
         console.log(idPool);
         addMessage(message.message, 'bot');
-        if (chatDiv) {
-            chatDiv.scroll({
-                top: 999999,
-                behavior: 'smooth'
-            });
-        }
         updateButtons(idPool);
     }
-    ;
+
+    if (chatDiv) {
+        chatDiv.scroll({
+            top: 999999,
+            behavior: 'smooth'
+        });
+    }
+    
 };
 var btn = new Button('siteNavigation', getContentById('siteNavigation'));
 btn.event();

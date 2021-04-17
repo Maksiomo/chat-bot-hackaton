@@ -76,57 +76,61 @@ wsServer.on('connection', function(socket) {
 
         let data = JSON.parse(income);
 
-        console.log(data.chatToken + " " + data.buttonId);
+        if (data.type === "welcome") {
+            type = "welcome";
+            message = "Приветствую, я Helpy - ваш гид по нашей платформе! Чем я могу помочь на этот раз?";
+            util.createResponse(type, message);
+        } else if (data.type === "message") {
+            //мои попытки имеют комменты, так что есчо стираем
+            switch (data.buttonId) {
+                case 'siteNavigation' : {
+                    idPool= ["1", "2", "3", "4", "5", "6"];
+                    type = "changeButtons";
+                    message = defaultMsg;
+                    util.createResponse(type, message, idPool);
+                    break;
+                }
 
-        //мои попытки имеют комменты, так что есчо стираем
-        switch (data.buttonId) {
-            case 'siteNavigation' : {
-                idPool= ["1", "2", "3", "4", "5", "6"];
-                type = "changeButtons";
-                message = defaultMsg;
-                util.createResponse(type, data.chatToken, message, idPool);
-                break;
-            }
+                case 'faq' : {
+                    idPool = ["1", "2", "3", "4", "5", "6", "7"];
+                    type = "changeButtons";
+                    message = defaultMsg;
+                    util.createResponse(type, message, idPool);
+                    break;
 
-            case 'faq' : {
-                idPool = ["1", "2", "3", "4", "5", "6", "7"];
-                type = "faqButtons";
-                message = defaultMsg;
-                util.createResponse(type, data.chatToken, message, idPool);
-                break;
+                }
+            
+                case 'mainPage' : //главная
+                case 'successPage' : { //истории успеха
+                    //подменю нет
+                    type = "finishButton"; //отличается от других кнопок
+                    message = "end of chain";
+                    util.createResponse(type, message);
+                    break;
+                }
 
-            }
-           
-            case 'mainPage' : //главная
-            case 'successPage' : { //истории успеха
-                //подменю нет
-                type = "finishButton"; //отличается от других кнопок
-                message = "end of chain";
-                util.createResponse(type, data.chatToken, message);
-                break;
-            }
+                case 'projectsPage' : //проекты
+                case 'learningPage' : //обучение
+                case 'lkPage' : { //личный кабинет
+                    idPool = ["1", "2", "3"];
+                    type = "ChangeButtons";
+                    message = defaultMsg;
+                    util.createResponse(type, message, idPool);
+                    break;
 
-            case 'projectsPage' : //проекты
-            case 'learningPage' : //обучение
-            case 'lkPage' : { //личный кабинет
-                idPool = ["1", "2", "3"];
-                type = "ChangeButtons";
-                message = defaultMsg;
-                util.createResponse(type, data.chatToken, message, idPool);
-                break;
+                }
 
-            }
+                case 'progressPage': { //трек развития
+                    idPool = ["1", "2", "3", "4"];
+                    type = "subChangeButtons";
+                    message = defaultMsg;
+                    util.createResponse(type, message, idPool);
+                    break;
+                }
 
-            case 'progressPage': { //трек развития
-                idPool = ["1", "2", "3", "4"];
-                type = "subChangeButtons";
-                message = defaultMsg;
-                util.createResponse(type, data.chatToken, message, idPool);
-                break;
-            }
-
-            case 'noAnswer' : {
-                
+                case 'noAnswer' : {
+                    
+                }
             }
         }
     });
@@ -137,15 +141,13 @@ wsServer.on('connection', function(socket) {
 
     
     const util ={
-        //createResponse: (idPool:string[], type: string, connectionToken: string) => {
-        createResponse: (type: string, connectionToken: string, smessage: string, idsPool?:string[]) => {
+        createResponse: (type: string, smessage: string, idsPool?:string[]) => {
             //может и стоит разбить конечный выбор и выбор с продолжением
             //но пока по ? кидаются в одну функцию
             if(idPool){
 
                 let response = {
                     msgType: type,
-                    token: connectionToken,
                     message: smessage,
                     idPool: idsPool
                 }
@@ -154,8 +156,7 @@ wsServer.on('connection', function(socket) {
             } else {
                 let response = {
                     msgType: type,
-                    token: connectionToken
-
+                    message: smessage
                 }
 
                 socket.send(JSON.stringify(response));
