@@ -11,9 +11,7 @@ const defaultMsg: string = "click recieved";
 const test = express();
 
 let idPool: string[];
-let idFaq = [];
 let type:string;
-let subIdPool: string[];
 
 
 test.use(cors());
@@ -23,8 +21,10 @@ const server = http.createServer(test);
 server.listen(3000, () => console.log("Server started!"));
 
 test.get('/chatToken', function(req, res) {
-    var json = JSON.stringify({type: 'chatToken', data: uuid()});
-    res.send(json);
+    var response = {
+        type: 'chatToken',
+        data: uuid()};
+    res.send(response);
 });
 
 const wsServer = new ws.Server({
@@ -45,15 +45,16 @@ wsServer.on('connection', function(socket) {
             case 'siteNavigation' : {
                 idPool= ["1", "2", "3", "4", "5", "6"];
                 type = "changeButtons";
-                //util.createResponse(idPool, type, data.token);
-                util.createResponse(type, data.token, idPool);
+                message = defaultMsg;
+                util.createResponse(type, data.token, message, idPool);
                 break;
             }
 
             case 'faq' : {
-                idFaq = ["1", "2", "3", "4", "5", "6", "7"];
+                idPool = ["1", "2", "3", "4", "5", "6", "7"];
                 type = "faqButtons";
-                util.createResponse(type, data.token, idFaq);
+                message = defaultMsg;
+                util.createResponse(type, data.token, message, idPool);
                 break;
 
             }
@@ -62,24 +63,27 @@ wsServer.on('connection', function(socket) {
             case 'successPage' : { //истории успеха
                 //подменю нет
                 type = "finishButton"; //отличается от других кнопок
-                util.createResponse(type, data.token);
+                message = "end of chain";
+                util.createResponse(type, data.token, message);
                 break;
             }
 
             case 'projectsPage' : //проекты
             case 'learningPage' : //обучение
             case 'lkPage' : { //личный кабинет
-                subIdPool = ["1", "2", "3"];
-                type = "subChangeButtons";
-                util.createResponse(type, data.token, subIdPool);
+                idPool = ["1", "2", "3"];
+                type = "ChangeButtons";
+                message = defaultMsg;
+                util.createResponse(type, data.token, message, idPool);
                 break;
 
             }
 
             case 'progressPage': { //трек развития
-                subIdPool = ["1", "2", "3", "4"];
+                idPool = ["1", "2", "3", "4"];
                 type = "subChangeButtons";
-                util.createResponse(type, data.token, subIdPool);
+                message = defaultMsg;
+                util.createResponse(type, data.token, message, idPool);
                 break;
             }
 
@@ -87,15 +91,6 @@ wsServer.on('connection', function(socket) {
                 
             }
         }
-
-        let response = {
-            type: "basicResponce",
-            text: defaultMsg,
-            token: data.connectionToken
-        }
-    
-        socket.send(response);
-
     });
 
     socket.on('close', function (){
@@ -105,22 +100,19 @@ wsServer.on('connection', function(socket) {
     
     const util ={
         //createResponse: (idPool:string[], type: string, connectionToken: string) => {
-        createResponse: (type: string, connectionToken: string, idPool?:string[]) => {
+        createResponse: (type: string, connectionToken: string, smessage: string, idsPool?:string[]) => {
             //может и стоит разбить конечный выбор и выбор с продолжением
             //но пока по ? кидаются в одну функцию
             if(idPool){
+
                 let response = {
                     msgType: type,
-                    data: [],
-                    token: connectionToken
-
+                    token: connectionToken,
+                    message: smessage,
+                    idPool: idsPool
                 }
-
-                for (const id of idPool) {
-                    response.data.push(id);
-                }
-
                 socket.send(response);
+
             } else {
                 let response = {
                     msgType: type,

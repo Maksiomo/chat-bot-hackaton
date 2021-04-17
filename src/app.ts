@@ -1,4 +1,5 @@
 //import * as $ from 'jquery';
+import axios from "axios";
 //Подключение контейнера для сообщений
 const chatDiv: HTMLElement | null = document.getElementById('chat');
 //Подключение контейнера для кнопок
@@ -134,22 +135,19 @@ class Button{
     };
 };
 
+const util = {
+    getToken: (async () => {
+        let info = await axios.get("http://localhost:3000/chatToken");
+        token = info.data;
+        console.log(token);
+    })
+}
+
 //get-запрос для получения токена (не работает)
 connection.onopen = function(event) {
     let headers = new Headers();
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:3000/chatToken',
-        success: function(answear) {
-            let jsonGet = JSON.parse(answear);
-            token = jsonGet.chatToken;
-            updateButtons(['siteNavigation']);
-        },
-        error: function(answear, status, error) {
-            alert('Error - ' + answear.status + ': ' + answear.statusText);
-        }
-    });
+    util.getToken();
 };
 /*
 * Слушатель сообщений от сервера

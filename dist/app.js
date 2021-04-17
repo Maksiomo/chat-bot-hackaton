@@ -165,18 +165,9 @@ var Button = /** @class */ (function () {
 connection.onopen = function (event) {
     var headers = new Headers();
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:3000/chatToken',
-        success: function (answear) {
-            var jsonGet = JSON.parse(answear);
-            token = jsonGet.chatToken;
-            updateButtons(['siteNavigation']);
-        },
-        error: function (answear, status, error) {
-            alert('Error - ' + answear.status + ': ' + answear.statusText);
-        }
-    });
+    const response = await axios.get("//localhost:3000/chatToken");
+    token = response.data;
+    console.log(token);
 };
 /*
 * Слушатель сообщений от сервера
