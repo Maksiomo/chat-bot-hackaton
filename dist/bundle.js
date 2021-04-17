@@ -1,11 +1,12 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
-//import * as $ from 'jquery';
+var ws = require('ws');
 //Подключение контейнера для сообщений
 var chatDiv = document.getElementById('chat');
 //Подключение контейнера для кнопок
 var buttonsDiv = document.getElementById('buttonContainer');
 //Переменная, хранящая токен пользователя
-var token;
+var token = 'token';
 //Создание вебсокета
 var connection = new WebSocket('ws://localhost:3000');
 /*
@@ -154,43 +155,63 @@ var Button = /** @class */ (function () {
                 });
             }
             var jsonSend = JSON.stringify({ 'chatToken': token, 'buttonId': _this.id });
-            connection.send(jsonSend);
+            //connection.send(jsonSend);
         });
     };
     ;
     return Button;
 }());
 ;
-//get-запрос для получения токена (не работает)
-connection.onopen = function (event) {
-    var headers = new Headers();
-    headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-    const response = await axios.get("//localhost:3000/chatToken");
-    token = response.data;
-    console.log(token);
+/*const util = {
+    getToken: (async () => {
+        let info = await axios.get("http://localhost:3000/chatToken");
+        token = info.data;
+        console.log(token);
+    })
 };
+
+//get-запрос для получения токена (не работает)
+connection.onopen = function(event) {
+    let headers = new Headers();
+    headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+    util.getToken();
+};*/
 /*
 * Слушатель сообщений от сервера
 * В случае совпадения токена выводит сообщение и обновляет кнопки
 * (Работоспособность неизвестна)
 */
-/*connection.onmessage = function(message: any){
-    let jsonGet = JSON.parse(message);
-    if(message.chatToken === token){
-        let idPool: string[] = [];
-        for(let i: number = 0; i < message.idPool.length; i++){
+connection.onmessage = function (message) {
+    var jsonGet = JSON.parse(message);
+    console.log('1');
+    if (message.token === token) {
+        var idPool = [];
+        for (var i = 0; i < message.idPool.length; i++) {
             idPool[i] = message.idPool[i];
-        };
-        addMessage(message.type, 'bot');
-        if(chatDiv){
+        }
+        ;
+        addMessage(message.message, 'bot');
+        if (chatDiv) {
             chatDiv.scroll({
-                top:999999,
+                top: 999999,
                 behavior: 'smooth'
             });
         }
         updateButtons(idPool);
-    };
-};*/
+    }
+    ;
+};
 var btn = new Button('siteNavigation', getContentById('siteNavigation'));
 btn.event();
-//# sourceMappingURL=app.js.map
+
+},{"ws":2}],2:[function(require,module,exports){
+'use strict';
+
+module.exports = function () {
+  throw new Error(
+    'ws does not work in the browser. Browser clients must use the native ' +
+      'WebSocket object'
+  );
+};
+
+},{}]},{},[1]);
