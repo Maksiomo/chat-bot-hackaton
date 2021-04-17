@@ -136,7 +136,7 @@ let source: string;
 
 let allPossibleStuff = {
     competitions: [
-        {name: "Лидеры России",tags: ["3", "4"],url: "https://xn--d1achcanypala0j.xn--p1ai/"}, 
+        {name: "Цифровой прорыв 2020",tags: ["3", "4"],url: "https://leadersofdigital.ru/"}, 
         {name: "Твой ход",tags: ["1", "2", "3"],url: "https://tvoyhod.online/"}, 
         {name: "Время карьеры",tags: ["5", "8"],url: "https://xn--80adjbxl0aeb4ii6a.xn--p1ai/"},
         {name: "Мой первый бизнес",tags:["8", "10"],url: "https://myfirstbusiness.ru/"},
@@ -283,7 +283,7 @@ wsServer.on('connection', function(socket) {
                     }
 
                     case 'projects' :{
-                        idPool = ["competions", "events", "projects"];
+                        idPool = ["competitions", "events", "projects"];
                         urlPool = [];
                         message = "";
                         type = "changeButtons";
@@ -318,9 +318,9 @@ wsServer.on('connection', function(socket) {
                         break;
                     }
 
-                    case 'competions' : {
+                    case 'competitions' : {
                         idPool = [allPossibleStuff.competitions[0].name, allPossibleStuff.competitions[1].name, allPossibleStuff.competitions[2].name, allPossibleStuff.competitions[3].name, allPossibleStuff.competitions[4].name];
-                        urlPool = ["https://leadersofdigital.ru/faq", "", "", "", ""]; //первый это цифровой прорыв
+                        urlPool = [allPossibleStuff.competitions[0].url, allPossibleStuff.competitions[1].url, allPossibleStuff.competitions[2].url, allPossibleStuff.competitions[3].url, allPossibleStuff.competitions[4].url]; //первый это цифровой прорыв
                         //куда отправлять? на дополнительную информацию
                         //или сразу на faq? сейчас отправлю на faq
                         message = "";
