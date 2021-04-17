@@ -5,12 +5,14 @@
     border: solid 0px black;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    border-radius: 0px;
+    border-radius: 8px;
 } 
 #header {
     width: 300px;
     height: 60px;
     background-color: #3874E0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 } 
 #header img {
     position: relative;
@@ -71,6 +73,8 @@
     width: 290px;
     height: 90px;
     padding: 5px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     background-color: #FFFFFF;
 }
 .button {
