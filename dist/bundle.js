@@ -35,11 +35,11 @@ function addMessage(message, author) {
     var date = new Date();
     if (author === "user") {
         newDiv.setAttribute("class", "container userMessage");
-        newDiv.innerHTML = "<span id=\"Time\">" + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span><br>" + message;
+        newDiv.innerHTML =  message + "<br><span id=\"Time\">" + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span>";
     }
     else if (author === "bot") {
         newDiv.setAttribute("class", "container botMessage");
-        newDiv.innerHTML = "<span id=\"Time\">" + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span><br>" + message;
+        newDiv.innerHTML = message + "<br><span id=\"Time\">" + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span>";
     }
     ;
     if (chatDiv) {
