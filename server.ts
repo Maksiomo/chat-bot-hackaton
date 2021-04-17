@@ -160,7 +160,9 @@ wsServer.on('connection', function(socket) {
                 }
 
                 case 'noAnswer' : {
-                    
+                    message = "К сожалению, моих сил не достаточно, чтобы вам помочь. :( Вы можете обратиться за помощью к специалисту службы поддержки, написав свой вопрос в поле снизу.";
+                    type = "noAnswer"; 
+                    util.createResponse(type, message);                    
                 }
 
                 default: {
