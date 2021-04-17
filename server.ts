@@ -136,41 +136,41 @@ let source: string;
 
 let allPossibleStuff = {
     competitions: [
-        {name: "Лидеры России",tags: ["3", "4"],url: ""}, 
-        {name: "Твой ход",tags: ["1", "2", "3"],url: ""}, 
-        {name: "Время карьеры",tags: ["5", "8"],url: ""},
-        {name: "Мой первый бизнес",tags:["8", "10"],url: ""},
-        {name: "Большая перемена",tags: ["1", "7", "10"],url: ""},
-        {name: "Лидеры России. Политика",tags: ["5", "6", "8"],url: ""}
+        {name: "Лидеры России",tags: ["3", "4"],url: "https://xn--d1achcanypala0j.xn--p1ai/"}, 
+        {name: "Твой ход",tags: ["1", "2", "3"],url: "https://tvoyhod.online/"}, 
+        {name: "Время карьеры",tags: ["5", "8"],url: "https://xn--80adjbxl0aeb4ii6a.xn--p1ai/"},
+        {name: "Мой первый бизнес",tags:["8", "10"],url: "https://myfirstbusiness.ru/"},
+        {name: "Большая перемена",tags: ["1", "7", "10"],url: "https://bolshayaperemena.online/"},
+        {name: "Лидеры России. Политика",tags: ["5", "6", "8"],url: "https://xn--d1abablabbpgg2am0ahn0gzd.xn--p1ai/"}
     ],
     events: [
-        {name: "Мастерская управлния 'Сенеж'",tags: ["1", "3"],url: ""},
-        {name: "Культурный код",tags: ["4", "5"],url: ""}
+        {name: "Мастерская управлния 'Сенеж'",tags: ["1", "3"],url: "https://rsv.ru/competitions/events/1/27/"},
+        {name: "Культурный код",tags: ["4", "5"],url: "https://rsv.ru/competitions/events/1/22/"}
     ],
     projects: [
-        {name: "Профстажировки 2.0",tags: ["1", "2"],url: ""}, 
-        {name: "Благотворительный проект 'Мечтай со мной'",tags: ["2", "3"],url: ""},
-        {name: "Фестиваль 'Российская студенческая весна'",tags: ["2", "4"],url: ""}
+        {name: "Профстажировки 2.0",tags: ["1", "2"],url: "https://xn--80aeliblxdekein0a.xn--p1ai/"}, 
+        {name: "Благотворительный проект 'Мечтай со мной'",tags: ["2", "3"],url: "https://xn--80ajnaldhgc0ai3d.xn--p1ai/"},
+        {name: "Фестиваль 'Российская студенческая весна'",tags: ["2", "4"],url: "https://studvesna.ruy.ru/"}
     ],
     testsMap: [
-        {name: "Мотивы труда",tags: ["3", "5"],url: ""},
-        {name: "Тип мышления",tags: ["2", "3"],url: ""},
-        {name: "Тест на профориентацию",tags: ["2", "5"],url: ""}
+        {name: "Мотивы труда",tags: ["3", "5"],url: "https://rsv.ru/portal/track"},
+        {name: "Тип мышления",tags: ["2", "3"],url: "https://rsv.ru/portal/track"},
+        {name: "Тест на профориентацию",tags: ["2", "5"],url: "https://rsv.ru/portal/track"}
     ],
     professionsCatalog: [
-        {name: "Digital и IT",tags: ["1", "3"],url: ""},
-        {name: "Образование",tags: ["2", "5"],url: ""},
-        {name: "Дизайн",tags: ["2", "4"],url: ""},
+        {name: "Digital и IT",tags: ["1", "3"],url: "https://rsv.ru/portal/professions/list/23"},
+        {name: "Образование",tags: ["2", "5"],url: "https://rsv.ru/portal/professions/list/28"},
+        {name: "Дизайн",tags: ["2", "4"],url: "https://rsv.ru/portal/professions/list/37"},
     ],
     boostSkills: [
-        {name: "Управление взаимодействием",tags: ["1", "3"],url: ""},
-        {name: "Управление задачами",tags: ["2", "5"],url: ""},
-        {name: "Общие знания",tags: ["2", "4"],url: ""},
+        {name: "Управление взаимодействием",tags: ["1", "3"],url: "https://rsv.ru/portal/other-skills"},
+        {name: "Управление задачами",tags: ["2", "5"],url: "https://rsv.ru/portal/other-skills"},
+        {name: "Общие знания",tags: ["2", "4"],url: "https://rsv.ru/portal/other-skills"},
     ],
     beProfessional: [
-        {name: "Склонности, предрасположения",tags: ["1", "3"],url: ""},
-        {name: "Базовые навыки",tags: ["2", "5"],url: ""},
-        {name: "Умения",tags: ["2", "4"],url: ""},
+        {name: "Склонности, предрасположения",tags: ["1", "3"],url: "https://rsv.ru/portal/hard-skills"},
+        {name: "Базовые навыки",tags: ["2", "5"],url: "https://rsv.ru/portal/hard-skills"},
+        {name: "Умения",tags: ["2", "4"],url: "https://rsv.ru/portal/hard-skills"},
     ],
 }
 
