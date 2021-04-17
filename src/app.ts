@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
 //Подключение контейнера для сообщений
 const chatDiv: HTMLElement | null = document.getElementById('chat');
 //Подключение контейнера для кнопок
@@ -156,7 +156,7 @@ connection.onopen = function(event) {
 * В случае совпадения токена выводит сообщение и обновляет кнопки
 * (Работоспособность неизвестна)
 */
-connection.onmessage = function(message: any){
+/*connection.onmessage = function(message: any){
     let jsonGet = JSON.parse(message);
     if(message.chatToken === token){
         let idPool: string[] = [];
@@ -172,7 +172,7 @@ connection.onmessage = function(message: any){
         }
         updateButtons(idPool);
     };
-};
+};*/
 
 const btn: Button = new Button('siteNavigation', getContentById('siteNavigation'));
 btn.event();
