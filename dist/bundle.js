@@ -160,8 +160,9 @@ var Button = /** @class */ (function () {
                 buttonId: ""
             }
 
-            msg.chatToken = token;
+            msg.chatToken = "token";
             msg.buttonId = _this.id;
+
 
             connection.send(JSON.stringify(msg));
         });
@@ -183,7 +184,7 @@ const util = {
 connection.onopen = function(event) {
     let headers = new Headers();
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-    util.getToken();
+    //util.getToken();
     console.log("connected");
 };
 /*
@@ -191,14 +192,19 @@ connection.onopen = function(event) {
 * В случае совпадения токена выводит сообщение и обновляет кнопки
 * (Работоспособность неизвестна)
 */
-connection.onmessage = function (message) {
-    console.log('1');
-    if (message.token === token) {
+connection.onmessage = function (income) {
+
+    let message = JSON.parse(income.data)
+
+    console.log(message);
+
+    if (message.token === "token") {
         var idPool = [];
         for (var i = 0; i < message.idPool.length; i++) {
             idPool[i] = message.idPool[i];
-        }
-        ;
+        };
+
+        console.log(idPool);
         addMessage(message.message, 'bot');
         if (chatDiv) {
             chatDiv.scroll({

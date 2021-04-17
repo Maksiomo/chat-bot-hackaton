@@ -76,7 +76,7 @@ wsServer.on('connection', function(socket) {
 
         let data = JSON.parse(income);
 
-        console.log(data.token + " " + data.buttonId);
+        console.log(data.chatToken + " " + data.buttonId);
 
         //мои попытки имеют комменты, так что есчо стираем
         switch (data.buttonId) {
@@ -84,7 +84,7 @@ wsServer.on('connection', function(socket) {
                 idPool= ["1", "2", "3", "4", "5", "6"];
                 type = "changeButtons";
                 message = defaultMsg;
-                util.createResponse(type, data.token, message, idPool);
+                util.createResponse(type, data.chatToken, message, idPool);
                 break;
             }
 
@@ -92,7 +92,7 @@ wsServer.on('connection', function(socket) {
                 idPool = ["1", "2", "3", "4", "5", "6", "7"];
                 type = "faqButtons";
                 message = defaultMsg;
-                util.createResponse(type, data.token, message, idPool);
+                util.createResponse(type, data.chatToken, message, idPool);
                 break;
 
             }
@@ -102,7 +102,7 @@ wsServer.on('connection', function(socket) {
                 //подменю нет
                 type = "finishButton"; //отличается от других кнопок
                 message = "end of chain";
-                util.createResponse(type, data.token, message);
+                util.createResponse(type, data.chatToken, message);
                 break;
             }
 
@@ -112,7 +112,7 @@ wsServer.on('connection', function(socket) {
                 idPool = ["1", "2", "3"];
                 type = "ChangeButtons";
                 message = defaultMsg;
-                util.createResponse(type, data.token, message, idPool);
+                util.createResponse(type, data.chatToken, message, idPool);
                 break;
 
             }
@@ -121,7 +121,7 @@ wsServer.on('connection', function(socket) {
                 idPool = ["1", "2", "3", "4"];
                 type = "subChangeButtons";
                 message = defaultMsg;
-                util.createResponse(type, data.token, message, idPool);
+                util.createResponse(type, data.chatToken, message, idPool);
                 break;
             }
 
