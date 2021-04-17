@@ -20,8 +20,10 @@ const server = http.createServer(test);
 server.listen(3000, () => console.log("Server started!"));
 
 test.get('/chatToken', function(req, res) {
-    var json = JSON.stringify({type: 'chatToken', data: uuid()});
-    res.send(json);
+    var response = {
+        type: 'chatToken',
+        data: uuid()};
+    res.send(response);
 });
 
 const wsServer = new ws.Server({

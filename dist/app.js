@@ -1,27 +1,5 @@
 "use strict";
-
-import axios from "axios"
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+//import * as $ from 'jquery';
 //Подключение контейнера для сообщений
 var chatDiv = document.getElementById('chat');
 //Подключение контейнера для кнопок
@@ -196,25 +174,23 @@ connection.onopen = function (event) {
 * В случае совпадения токена выводит сообщение и обновляет кнопки
 * (Работоспособность неизвестна)
 */
-connection.onmessage = function (message) {
-    var jsonGet = JSON.parse(message);
-    if (message.chatToken === token) {
-        var idPool = [];
-        for (var i = 0; i < message.idPool.length; i++) {
+/*connection.onmessage = function(message: any){
+    let jsonGet = JSON.parse(message);
+    if(message.chatToken === token){
+        let idPool: string[] = [];
+        for(let i: number = 0; i < message.idPool.length; i++){
             idPool[i] = message.idPool[i];
-        }
-        ;
+        };
         addMessage(message.type, 'bot');
-        if (chatDiv) {
+        if(chatDiv){
             chatDiv.scroll({
-                top: 999999,
+                top:999999,
                 behavior: 'smooth'
             });
         }
         updateButtons(idPool);
-    }
-    ;
-};
+    };
+};*/
 var btn = new Button('siteNavigation', getContentById('siteNavigation'));
 btn.event();
 //# sourceMappingURL=app.js.map

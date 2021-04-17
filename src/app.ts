@@ -1,3 +1,5 @@
+//import * as $ from 'jquery';
+import axios from "axios";
 //Подключение контейнера для сообщений
 const chatDiv: HTMLElement | null = document.getElementById('chat');
 //Подключение контейнера для кнопок
@@ -133,17 +135,26 @@ class Button{
     };
 };
 
+const util = {
+    getToken: (async () => {
+        let info = await axios.get("http://localhost:3000/chatToken");
+        token = info.data;
+        console.log(token);
+    })
+}
+
 //get-запрос для получения токена (не работает)
 connection.onopen = function(event) {
     let headers = new Headers();
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+    util.getToken();
 };
 /*
 * Слушатель сообщений от сервера
 * В случае совпадения токена выводит сообщение и обновляет кнопки
 * (Работоспособность неизвестна)
 */
-connection.onmessage = function(message: any){
+/*connection.onmessage = function(message: any){
     let jsonGet = JSON.parse(message);
     if(message.chatToken === token){
         let idPool: string[] = [];
@@ -159,7 +170,7 @@ connection.onmessage = function(message: any){
         }
         updateButtons(idPool);
     };
-};
+};*/
 
 const btn: Button = new Button('siteNavigation', getContentById('siteNavigation'));
 btn.event();
