@@ -37,6 +37,7 @@ const serverUtil ={
 }
 
 let idPool: string[];
+let urlPool: string[];
 let type:string;
 let message: string;
 
@@ -114,7 +115,7 @@ wsServer.on('connection', function(socket) {
             //мои попытки имеют комменты, так что есчо стираем
             switch (data.buttonId) {
                 case 'siteNavigation' : {
-                    idPool= ["1", "2", "3", "4", "5", "6"];
+                    idPool= ["learningPage", "projectPage", "progressPage", "successPage", "return"];
                     type = "У нас на сайте есть следующие разделы:";
                     message = defaultMsg;
                     util.createResponse(type, message, idPool);
@@ -130,7 +131,13 @@ wsServer.on('connection', function(socket) {
 
                 }
             
-                case 'mainPage' : //главная
+                case 'mainPage' : {
+                    idPool = ["mainPage"];
+                    type = "changeButtons";
+                    message = "";
+                    util.createResponse(type, message, idPool);
+                    break;
+                } //главная
                 case 'successPage' : { //истории успеха
                     //подменю нет
                     type = "finishButton"; //отличается от других кнопок
@@ -147,11 +154,25 @@ wsServer.on('connection', function(socket) {
                     break;
                 }
                 case 'learningPage' : { //обучение
-                    idPool = ["1", "2", "3"];
-                    type = "Мы не любим сидеть на месте и постоянно проводим ивенты";
-                    message = defaultMsg;
+                    idPool = ["webinarPage", "coursesPage"];
+                    type = "changeButtons";
+                    message = "Каждый день на нашей платформе появляются новые курсы и вебинары, на которых можно не только узнать что то новое, но и испытать свои навыки. Что именно вы хотели бы попробовать на этот раз?";
                     util.createResponse(type, message, idPool);
                     break;
+                }
+
+                case 'webinarPage' : {
+                    type = "showUrls";
+                    message = "Вот несколько вебинаров, которые пройдут очень скоро:"
+                    urlPool =["https://rsv.ru/portal/edu/webinars/1/104?mView=detail", "https://rsv.ru/portal/edu/webinars/1/111?mView=detail", "https://rsv.ru/portal/edu/webinars/1/122?mView=detail"];
+                    util.createResponse(type, message, idPool, urlPool);
+                }
+
+                case 'coursesPage' : {
+                    type = "showUrls";
+                    message = "Вот несколько курсов, которые начнутся очень скоро:"
+                    urlPool = ["https://rsv.ru/portal/edu/courses/1/543?mView=detail", "https://rsv.ru/portal/edu/courses/1/541?mView=detail", "https://rsv.ru/portal/edu/courses/1/540?mView=detail"];
+                    util.createResponse(type, message, idPool, urlPool);
                 }
                 
                 case 'lkPage' : { //личный кабинет
@@ -178,7 +199,7 @@ wsServer.on('connection', function(socket) {
                 }
 
                 default: {
-                    idPool = ["siteNavigation"];
+                    idPool = ["mainPage"];
                     type = "changeButtons";
                     message = "Invalid button! Return to main page.";
                     util.createResponse(type, message, idPool);
@@ -194,10 +215,18 @@ wsServer.on('connection', function(socket) {
 
     
     const util ={
-        createResponse: (type: string, smessage: string, idsPool?:string[]) => {
+        createResponse: (type: string, smessage: string, idsPool?:string[], urlsPool?:string[]) => {
             //может и стоит разбить конечный выбор и выбор с продолжением
             //но пока по ? кидаются в одну функцию
-            if(idPool){
+            if(urlsPool){
+
+                let response = {
+                    msgType: type,
+                    message: smessage, 
+                    urlPool: urlsPool
+                }
+                socket.send(JSON.stringify(response));
+            } else if(idsPool){
 
                 let response = {
                     msgType: type,
