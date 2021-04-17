@@ -120,6 +120,16 @@ function getContentById(id) {
                 return 'Главная страница';
             }
             ;
+        case 'webinarPage':
+            {
+                return 'Вебинары';
+            }
+            ;
+        case 'coursesPage':
+            {
+                return 'Курсы';
+            }
+            ;
         case 'return':
             {
                 return 'Вернуться';
