@@ -44,6 +44,24 @@ img#exit{
     border-top: solid 0px black;
     border-bottom: solid 0px black;
 } 
+#faqChat {
+    overflow: auto;
+    width: 290px;
+    height: 285px;
+    padding: 5px;
+    background-color: #EFF3F6;
+    border-top: solid 0px black;
+    border-bottom: solid 0px black;
+} 
+#botChat {
+    overflow: auto;
+    width: 290px;
+    height: 285px;
+    padding: 5px;
+    background-color: #EFF3F6;
+    border-top: solid 0px black;
+    border-bottom: solid 0px black;
+} 
 .userMessage {
     overflow: auto;
     border: 1px solid #979797d5;
@@ -84,6 +102,22 @@ img#exit{
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     background-color: #FFFFFF;
+}
+#faqButtonContainer {
+    width: 290px;
+    height: 90px;
+    padding: 5px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #ffffff;
+}
+#botButtonContainer {
+    width: 290px;
+    height: 90px;
+    padding: 5px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #ffffff;
 }
 .button {
     border: 2px solid #214994;
@@ -127,8 +161,8 @@ img#exit{
   /* Style the tab content */
   .tabcontent {
     display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
+    padding: 0px 0px;
+    border: 0px solid #ccc;
     border-top: none;
   }
 

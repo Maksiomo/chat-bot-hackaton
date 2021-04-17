@@ -3,9 +3,9 @@
 "use strict";
 var ws = require('ws');
 //Подключение контейнера для сообщений
-var chatDiv = document.getElementById('chat');
+var chatDiv = document.getElementById('botChat');
 //Подключение контейнера для кнопок
-var buttonsDiv = document.getElementById('buttonContainer');
+var buttonsDiv = document.getElementById('botButtonContainer');
 //Переменная, хранящая токен пользователя
 var token = "token";
 //Создание вебсокета

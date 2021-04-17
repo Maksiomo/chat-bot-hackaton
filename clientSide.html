@@ -9,6 +9,28 @@
     <style>
     </style>
     <script src="./dist/bundle.js" defer></script>
+    <script> 
+        function openTab(evt, tabName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+    
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        }
+    
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+    
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+  </script>
 </head>
 <body>
     <div id="widget" class="container">            
@@ -22,21 +44,21 @@
         </div>  
         <!-- Tab links -->
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'faq')">FAQ</button>
-            <button class="tablinks" onclick="openTab(event, 'bot')">Bot</button>
-            <button class="tablinks" onclick="openTab(event, 'chat')">Chat</button>
-            <button class="tablinks" onclick="openTab(event, 'voice')">Voice</button>
+            <button class="tablinks" onclick="openTab(event, 'faqTab')">FAQ</button>
+            <button class="tablinks" onclick="openTab(event, 'botTab')">Bot</button>
+            <button class="tablinks" onclick="openTab(event, 'chatTab')">Chat</button>
+            <button class="tablinks" onclick="openTab(event, 'voiceTab')">Voice</button>
         </div>
         
         <!-- Tab content -->
         <div id="faqTab" class="tabcontent">
-            <h3>FAQ</h3>
-            <p>This is the tab with the FAQ.</p>
+            <div id="faqChat" class="container"></div>  
+            <div id="faqButtonContainer" class="container"></div>
         </div>
         
         <div id="botTab" class="tabcontent">
-            <h3>Bot</h3>
-            <p>This is the tab with the Bot.</p>
+            <div id="botChat" class="container"></div>  
+            <div id="botButtonContainer" class="container"></div>
         </div>
         
         <div id="chatTab" class="tabcontent">
@@ -48,8 +70,7 @@
             <p>This is the tab with Voice.</p>
         </div>  
 
-        <div id="buttonContainer" class="container">
-        </div>
+        
     </div>
 </body>
 </html>
