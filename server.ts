@@ -33,6 +33,98 @@ const serverUtil ={
             serverUtil.createUser(userID, isReg, skills);
         }
         return false;
+    },
+
+    createStuffPool: (skillsPool: string[], allPossibleStuff: any) => {
+        let finalPool =[];
+        let flag: boolean = false;
+        for (let competition of allPossibleStuff.competitions) {
+            for (let skill of skillsPool) {
+                for (let tag of competition.tags) {
+                    if (skill === tag) {
+                        finalPool.push(competition);
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) break;
+            }
+            flag = false;
+        }
+        for (let event of allPossibleStuff.events) {
+            for (let skill of skillsPool) {
+                for (let tag of event.tags) {
+                    if (skill === tag) {
+                        finalPool.push(event);
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) break;
+            }
+        flag = false;
+        }for (let project of allPossibleStuff.projects) {
+            for (let skill of skillsPool) {
+                for (let tag of project.tags) {
+                    if (skill === tag) {
+                        finalPool.push(project);
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) break;
+            }
+            flag = false;
+        }for (let profession of allPossibleStuff.professionsCatalog) {
+            for (let skill of skillsPool) {
+                for (let tag of profession.tags) {
+                    if (skill === tag) {
+                        finalPool.push(profession);
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) break;
+            }
+            flag = false;
+        }for (let competition of allPossibleStuff.competitions) {
+            for (let skill of skillsPool) {
+                for (let tag of competition.tags) {
+                    if (skill === tag) {
+                        finalPool.push(competition);
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) break;
+            }
+            flag = false;
+        }for (let boostSkill of allPossibleStuff.boostSkills) {
+            for (let skill of skillsPool) {
+                for (let tag of boostSkill.tags) {
+                    if (skill === tag) {
+                        finalPool.push(boostSkill);
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) break;
+            }
+            flag = false;
+        }for (let proffesional of allPossibleStuff.beProfessional) {
+            for (let skill of skillsPool) {
+                for (let tag of proffesional.tags) {
+                    if (skill === tag) {
+                        finalPool.push(proffesional);
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) break;
+            }
+            flag = false;
+        }
+        return finalPool;
     }
 }
 
@@ -43,69 +135,51 @@ let message: string;
 let source: string;
 
 let allPossibleStuff = {
-    competions: [
-        {name: "Лидеры России",
-        tags: ["3", "4"]}, 
-        {name: "Твой ход",
-        tags: ["1", "2", "3"]}, 
-        {name: "Время карьеры",
-        tags: ["5", "8"]},
-        {name:"Мой первый бизнес",
-        tags:["8", "10"]},
-        {name: "Большая перемена",
-        tags: ["1", "7", "10"]},
-        {name: "Лидеры России. Политика",
-        tags: ["5", "6", "8"]}
+    competitions: [
+        {name: "Лидеры России",tags: ["3", "4"]}, 
+        {name: "Твой ход",tags: ["1", "2", "3"]}, 
+        {name: "Время карьеры",tags: ["5", "8"]},
+        {name:"Мой первый бизнес",tags:["8", "10"]},
+        {name: "Большая перемена",tags: ["1", "7", "10"]},
+        {name: "Лидеры России. Политика",tags: ["5", "6", "8"]}
     ],
     events: [
-        {name: "Мастерская управлния 'Сенеж'",
-        tags: ["1", "3"]},
-        {name: "Культурный код",
-        tags: ["4", "5"]}
+        {name: "Мастерская управлния 'Сенеж'",tags: ["1", "3"]},
+        {name: "Культурный код",tags: ["4", "5"]}
     ],
     projects: [
-        {name: "Профстажировки 2.0",
-        tags: ["1", "2"]}, 
-        {name: "Благотворительный проект 'Мечтай со мной'",
-        tags: ["2", "3"]},
-        {name: "Фестиваль 'Российская студенческая весна'",
-        tags: ["2", "4"]}
+        {name: "Профстажировки 2.0",tags: ["1", "2"]}, 
+        {name: "Благотворительный проект 'Мечтай со мной'",tags: ["2", "3"]},
+        {name: "Фестиваль 'Российская студенческая весна'",tags: ["2", "4"]}
     ],
     testsMap: [
-        {name: "Мотивы труда",
-        tags: ["3", "5"]},
-        {name: "Тип мышления",
-        tags: ["2", "3"]},
-        {name: "Тест на профориентацию",
-        tags: ["2", "5"]}
+        {name: "Мотивы труда",tags: ["3", "5"]},
+        {name: "Тип мышления",tags: ["2", "3"]},
+        {name: "Тест на профориентацию",tags: ["2", "5"]}
     ],
     professionsCatalog: [
-        {name: "Digital и IT",
-        tags: ["1", "3"]},
-        {name: "Образование",
-        tags: ["2", "5"]},
-        {name: "Дизайн",
-        tags: ["2", "4"]},
+        {name: "Digital и IT",tags: ["1", "3"]},
+        {name: "Образование",tags: ["2", "5"]},
+        {name: "Дизайн",tags: ["2", "4"]},
     ],
     boostSkills: [
-        {name: "Управление взаимодействием",
-        tags: ["1", "3"]},
-        {name: "Управление задачами",
-        tags: ["2", "5"]},
-        {name: "Общие знания",
-        tags: ["2", "4"]},
+        {name: "Управление взаимодействием",tags: ["1", "3"]},
+        {name: "Управление задачами",tags: ["2", "5"]},
+        {name: "Общие знания",tags: ["2", "4"]},
     ],
     beProfessional: [
-        {name: "Склонности, предрасположения",
-        tags: ["1", "3"]},
-        {name: "Базовые навыки",
-        tags: ["2", "5"]},
-        {name: "Умения",
-        tags: ["2", "4"]},
+        {name: "Склонности, предрасположения",tags: ["1", "3"]},
+        {name: "Базовые навыки",tags: ["2", "5"]},
+        {name: "Умения",tags: ["2", "4"]},
     ],
 }
 
-
+let testUser = {
+    ageGroup: "student",
+    skills: ["1", "4", "7"],
+    geschlecht: "man", 
+    job: "none"
+}
 
 test.use(cors());
 
@@ -151,11 +225,17 @@ wsServer.on('connection', function(socket) {
                 switch (data.buttonId) {
 
                     case 'iAmRegistered' :{
+                        idPool = ["goFotIt"];
                         message = "Отлично, теперь давайте как я поищу для вас что нибудь интересное...";
                         type = "changeButtons";
                         source = "bot";
-                        util.createResponse(type, message, source);
+                        util.createResponse(type, message, source, idPool);
                         break;
+                    }
+
+                    case 'goForIt' :{
+                        let skillPool = serverUtil.createStuffPool(testUser.skills, allPossibleStuff);
+                        console.log(skillPool);
                     }
     
                     case 'noAnswer' : {
