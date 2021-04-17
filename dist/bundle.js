@@ -6,6 +6,10 @@ var ws = require('ws');
 var chatDiv = document.getElementById('botChat');
 //Подключение контейнера для кнопок
 var buttonsDiv = document.getElementById('botButtonContainer');
+// контейнер для вывода FAQ 
+var faqDiv = document.getElementById('faqChat');
+// контейнер для кнопок FAQ
+//var buttonsFaq = document.getElementById('faqButtonContainer');
 //Переменная, хранящая токен пользователя
 var token = "token";
 //Создание вебсокета
@@ -22,10 +26,8 @@ function makeGoodTime(int) {
     }
     else {
         return "" + int;
-    }
-    ;
-}
-;
+    };
+};
 /*
 * Метод добавляющий новое сообщение в контейнер chatDiv
 * Принимает сообщение и его автора user/bot
@@ -40,14 +42,47 @@ function addMessage(message, author) {
     else if (author === "bot") {
         newDiv.setAttribute("class", "container botMessage");
         newDiv.innerHTML = message + "<br><span id=\"Time\">" + makeGoodTime(date.getHours()) + ":" + makeGoodTime(date.getMinutes()) + "</span>";
-    }
-    ;
+    };
     if (chatDiv) {
         chatDiv.appendChild(newDiv);
-    }
-    ;
-}
-;
+    };
+};
+
+/*
+    Метод, добавляющий сообщения в контейнер faqDiv
+    примает текст сообщения и автора
+*/
+
+    function addMessageToFAQ(message) {
+        var newDiv = document.createElement('div');
+            newDiv.setAttribute("class", "container botMessage");
+            newDiv.innerHTML = message;
+        if (faqDiv) {
+            faqDiv.appendChild(newDiv);
+        };
+    };
+
+/*
+    Метод, добавляющий кнопку в контейнер faqDiv
+    принимает id и содержания кнопки 
+    возвращает созданный HTML элемент
+*/
+
+    function createHTMLButtonFAQ(id, content) {
+        var newDiv = document.createElement('button');
+        newDiv.setAttribute("id", id);
+        newDiv.setAttribute("class", 'container button');
+        newDiv.innerHTML = content;
+        if (faqDiv) {
+            faqDiv.appendChild(newDiv);
+        };
+        return newDiv;
+    };
+
+/*
+
+*/
+
 /*
 * Метод, создаюший HTML-кнопку в контейнере buttonDiv
 * Принимает id и содержание кнопки
@@ -60,24 +95,23 @@ function createHTMLButton(id, content) {
     newDiv.innerHTML = content;
     if (buttonsDiv) {
         buttonsDiv.appendChild(newDiv);
-    }
-    ;
+    };
     return newDiv;
-}
-;
+};
+
+
+
 /*
-* Метод, удаляющий старые кнопки
+Метод, удаляющий старые кнопки в контейнере 
+принимает id контейнера
 */
-function removeOldButtons() {
-    if (buttonsDiv) {
-        while (buttonsDiv.firstChild) {
-            buttonsDiv.removeChild(buttonsDiv.firstChild);
-        }
-        ;
-    }
-    ;
-}
-;
+function removeOldButtons(id) {
+    if (id) {
+        while (id.firstChild) {
+            id.removeChild(id.firstChild);
+        };
+    };
+};
 /*
 * Метод, определяющий содержание кнопки по id
 * Принимает id
@@ -85,65 +119,11 @@ function removeOldButtons() {
 */
 function getContentById(id) {
     switch (id) {
-        case 'siteNavigation':
-            {
-                return 'Навигация по сайту';
-            }
-            ;
-        case 'successPage':
-            {
-                return 'Истории успеха';
-            }
-            ;
-        case 'lkPage':
-            {
-                return 'Личный кабинет';
-            }
-            ;
-        case 'learningPage':
-            {
-                return 'Обучение';
-            }
-            ;
-        case 'projectPage':
-            {
-                return 'Проекты';
-            }
-            ;
-        case 'progressPage':
-            {
-                return 'Трек развития';
-            }
-            ;
-        case 'mainPage':
-            {
-                return 'Главная страница';
-            }
-            ;
-        case 'webinarPage':
-            {
-                return 'Вебинары';
-            }
-            ;
-        case 'coursesPage':
-            {
-                return 'Курсы';
-            }
-            ;
-        case 'return':
-            {
-                return 'Вернуться';
-            }
-            ;
-        default:
-            {
-                return 'Invalid button';
-            }
-            ;
-    }
-    ;
-}
-;
+        // TODO: прописать новые айдишники для новых кнопок
+        case 'return':{return 'Вернуться'};
+        default:{return 'Invalid button'};
+    };
+};
 /*
 * Метод, обновляющий контейнер с кнопками
 * Принимает id кнопок, которые необходимо создать
@@ -154,65 +134,68 @@ function updateButtons(idPool) {
         var id = idPool_1[_i];
         var btn_1 = new Button(id, getContentById(id));
         btn_1.event();
-    }
-    ;
-}
-;
+    };
+};
 /*
 * Класс, который позволяет создавать кнопки с id и привязывать к ним HTML-элемент
 * Метод возволяет просулшивать кнопку и создает запрос на сервер
 */
 var Button = /** @class */ (function () {
-    function Button(id, content) {
+    function Button(id, content, source) {
         this.id = id;
         this.content = content;
-    }
-    ;
+        this.source = source;
+    };
     Button.prototype.getId = function () {
         return this.id;
     };
-    ;
     Button.prototype.setId = function (id) {
         this.id = id;
     };
-    ;
     Button.prototype.getContent = function () {
         return this.content;
     };
-    ;
     Button.prototype.setContent = function (content) {
         this.content = content;
     };
-    ;
+    Button.prototype.getSource = function () {
+        return this.source;
+    }
+    Button.prototype.setSource = function (source) {
+        this.source = source;
+    }
     Button.prototype.event = function () {
         var _this = this;
         var btn = createHTMLButton(this.id, this.content);
         btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', function () {
-            addMessage(_this.content, 'user');
-            if (chatDiv) {
-                chatDiv.scroll({
-                    top: 999999,
-                    behavior: 'smooth'
-                });
-            }
 
+            if (_this.source === "bot") {
+                addMessage(_this.content, 'user');
+                if (chatDiv) {
+                    chatDiv.scroll({
+                        top: 999999,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
             let msg = {
                 type: "",
-                buttonId: ""
+                buttonId: "",
+                source: ""
             }
 
             msg.type = "message";
             msg.buttonId = _this.id;
+            msg.source = _this.source;
 
             //console.log(msg);
 
             connection.send(JSON.stringify(msg));
         });
     };
-    ;
     return Button;
 }());
-;
 
 const util = {
     getToken: (async () => {
@@ -228,10 +211,16 @@ connection.onopen = function(event) {
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
     //util.getToken();
     console.log("connected");
-    let welcomeMsg = {
-        type: "welcome"
+    let welcomeMsgBot = {
+        type: "welcome",
+        source: "bot"
     }
-    connection.send(JSON.stringify(welcomeMsg));
+    connection.send(JSON.stringify(welcomeMsgBot));
+    let welcomeMsgFAQ = {
+        type: "welcome",
+        source: "faq"
+    }
+    connection.send(JSON.stringify(welcomeMsgBot));
 };
 /*
 * Слушатель сообщений от сервера
@@ -241,33 +230,48 @@ connection.onopen = function(event) {
 connection.onmessage = function (income) {
 
     let message = JSON.parse(income.data);
-    
-    if (message.msgType === "welcome"){
-        addMessage(message.message, 'bot');
-    } else if (message.msgType === "changeButtons") {
-        var idPool = [];
-        for (var i = 0; i < message.idPool.length; i++) {
-            idPool[i] = message.idPool[i];
-        };
-        console.log(idPool);
-        addMessage(message.message, 'bot');
-        updateButtons(idPool);
-    }
 
-    if (chatDiv) {
-        chatDiv.scroll({
-            top: 999999,
-            behavior: 'smooth'
-        });
-    } else if (message.msgType === "showUrls"){
-        addMessage(message.message, "bot");
-        for (url of message.urlPool) {
-            addMessage(url, "bot");
+    if (message.source === "bot") {
+        if (message.msgType === "welcome"){
+            addMessage(message.message, 'bot');
+        } else if (message.msgType === "changeButtons") {
+            var idPool = [];
+            for (var i = 0; i < message.idPool.length; i++) {
+                idPool[i] = message.idPool[i];
+            };
+            console.log(idPool);
+            addMessage(message.message, 'bot');
+            updateButtons(idPool);
+        } else if (message.msgType === "showUrls"){
+            addMessage(message.message, "bot");
+            for (url of message.urlPool) {
+                addMessage(url, "bot");
+            }
+        } else if (message.msgType === "return"){
+            // TODO: напиши меня!!!!
+        }  
+        if (chatDiv) {
+            chatDiv.scroll({
+                top: 999999,
+                behavior: 'smooth'
+            });
+        } 
+    } else if (message.source === "faq") {
+        if (message.msgType === "welcome") {
+
+        } else if (message.msgType === "changeButtons") {
+
+        } else if (message.msgType === "showUrls") {
+
+        } else if (message.msgType === "return") {
+            // TODO: напиши меня тоже!!!!
         }
     }
     
+    
+    
 };
-var btn = new Button('siteNavigation', getContentById('siteNavigation'));
+var btn = new Button('siteNavigation', getContentById('siteNavigation'), "bot");
 btn.event();
 
 },{"ws":2}],2:[function(require,module,exports){
