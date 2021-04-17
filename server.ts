@@ -1,17 +1,17 @@
-import * as axios from "axios";
 import * as ws from "ws";
 import {v4 as uuid} from "uuid";
 import * as cors from "cors";
 import * as express from "express";
 import * as http from "http";
+import {EJSON} from "bson";
 
-let users: any = [];
 const defaultMsg: string = "click recieved";
 
 const test = express();
 
 let idPool: string[];
 let type:string;
+let message: string;
 
 let qwe = {
     competions: [
@@ -32,14 +32,16 @@ let qwe = {
         {name: "Мастерская управлния 'Сенеж'",
         tags: ["1", "3"]},
         {name: "Культурный код",
-        tags: ["4", "5"]}],
+        tags: ["4", "5"]}
+    ],
     projects: [
         {name: "Профстажировки 2.0",
         tags: ["1", "2"]}, 
         {name: "Благотворительный проект 'Мечтай со мной'",
         tags: ["2", "3"]},
         {name: "Фестиваль 'Российская студенческая весна'",
-        tags: ["2", "4"]}]
+        tags: ["2", "4"]}
+    ]
 }
 
 
@@ -63,12 +65,18 @@ const wsServer = new ws.Server({
 
 wsServer.on('connection', function(socket) {
 
+    var login: string = '';
+    var registered: boolean = false;
+
     socket.on('open', function() {
         console.log("connection established");
     });
 
-    socket.on('message', function(message: string) {
-        var data = JSON.parse(message);
+    socket.on('message', function(income: any) {
+
+        let data = JSON.parse(income);
+
+        console.log(data.token + " " + data.buttonId);
 
         //мои попытки имеют комменты, так что есчо стираем
         switch (data.buttonId) {
@@ -141,7 +149,7 @@ wsServer.on('connection', function(socket) {
                     message: smessage,
                     idPool: idsPool
                 }
-                socket.send(response);
+                socket.send(JSON.stringify(response));
 
             } else {
                 let response = {
@@ -150,7 +158,7 @@ wsServer.on('connection', function(socket) {
 
                 }
 
-                socket.send(response);
+                socket.send(JSON.stringify(response));
             }
         
             //socket.send(response); раньше был общий
