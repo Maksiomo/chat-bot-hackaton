@@ -136,41 +136,41 @@ let source: string;
 
 let allPossibleStuff = {
     competitions: [
-        {name: "Лидеры России",tags: ["3", "4"]}, 
-        {name: "Твой ход",tags: ["1", "2", "3"]}, 
-        {name: "Время карьеры",tags: ["5", "8"]},
-        {name:"Мой первый бизнес",tags:["8", "10"]},
-        {name: "Большая перемена",tags: ["1", "7", "10"]},
-        {name: "Лидеры России. Политика",tags: ["5", "6", "8"]}
+        {name: "Лидеры России",tags: ["3", "4"],url: ""}, 
+        {name: "Твой ход",tags: ["1", "2", "3"],url: ""}, 
+        {name: "Время карьеры",tags: ["5", "8"],url: ""},
+        {name: "Мой первый бизнес",tags:["8", "10"],url: ""},
+        {name: "Большая перемена",tags: ["1", "7", "10"],url: ""},
+        {name: "Лидеры России. Политика",tags: ["5", "6", "8"],url: ""}
     ],
     events: [
-        {name: "Мастерская управлния 'Сенеж'",tags: ["1", "3"]},
-        {name: "Культурный код",tags: ["4", "5"]}
+        {name: "Мастерская управлния 'Сенеж'",tags: ["1", "3"],url: ""},
+        {name: "Культурный код",tags: ["4", "5"],url: ""}
     ],
     projects: [
-        {name: "Профстажировки 2.0",tags: ["1", "2"]}, 
-        {name: "Благотворительный проект 'Мечтай со мной'",tags: ["2", "3"]},
-        {name: "Фестиваль 'Российская студенческая весна'",tags: ["2", "4"]}
+        {name: "Профстажировки 2.0",tags: ["1", "2"],url: ""}, 
+        {name: "Благотворительный проект 'Мечтай со мной'",tags: ["2", "3"],url: ""},
+        {name: "Фестиваль 'Российская студенческая весна'",tags: ["2", "4"],url: ""}
     ],
     testsMap: [
-        {name: "Мотивы труда",tags: ["3", "5"]},
-        {name: "Тип мышления",tags: ["2", "3"]},
-        {name: "Тест на профориентацию",tags: ["2", "5"]}
+        {name: "Мотивы труда",tags: ["3", "5"],url: ""},
+        {name: "Тип мышления",tags: ["2", "3"],url: ""},
+        {name: "Тест на профориентацию",tags: ["2", "5"],url: ""}
     ],
     professionsCatalog: [
-        {name: "Digital и IT",tags: ["1", "3"]},
-        {name: "Образование",tags: ["2", "5"]},
-        {name: "Дизайн",tags: ["2", "4"]},
+        {name: "Digital и IT",tags: ["1", "3"],url: ""},
+        {name: "Образование",tags: ["2", "5"],url: ""},
+        {name: "Дизайн",tags: ["2", "4"],url: ""},
     ],
     boostSkills: [
-        {name: "Управление взаимодействием",tags: ["1", "3"]},
-        {name: "Управление задачами",tags: ["2", "5"]},
-        {name: "Общие знания",tags: ["2", "4"]},
+        {name: "Управление взаимодействием",tags: ["1", "3"],url: ""},
+        {name: "Управление задачами",tags: ["2", "5"],url: ""},
+        {name: "Общие знания",tags: ["2", "4"],url: ""},
     ],
     beProfessional: [
-        {name: "Склонности, предрасположения",tags: ["1", "3"]},
-        {name: "Базовые навыки",tags: ["2", "5"]},
-        {name: "Умения",tags: ["2", "4"]},
+        {name: "Склонности, предрасположения",tags: ["1", "3"],url: ""},
+        {name: "Базовые навыки",tags: ["2", "5"],url: ""},
+        {name: "Умения",tags: ["2", "4"],url: ""},
     ],
 }
 
@@ -235,7 +235,11 @@ wsServer.on('connection', function(socket) {
 
                     case 'goForIt' :{
                         let skillPool = serverUtil.createStuffPool(testUser.skills, allPossibleStuff);
-                        console.log(skillPool);
+                        //console.log(skillPool);
+                        urlPool=[];
+                        for (let skill of skillPool) {
+                            urlPool.push(skill.url);
+                        }
                     }
     
                     case 'noAnswer' : {
