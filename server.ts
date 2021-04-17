@@ -215,7 +215,7 @@ wsServer.on('connection', function(socket) {
 
                     case 'successStories' :{
                         message = "";
-                        type = "changeButtons";
+                        type = "finishButtons";
                         source = "faq";
                         util.createResponse(type, message, source);
                         break;
@@ -223,7 +223,7 @@ wsServer.on('connection', function(socket) {
 
                     case 'helpOthers' :{
                         message = "";
-                        type = "changeButtons";
+                        type = "finishButtons";
                         source = "faq";
                         util.createResponse(type, message, source);
                         break;
@@ -231,11 +231,30 @@ wsServer.on('connection', function(socket) {
 
                     case 'competions' : {
                         idPool = [allPossibleStuff.competions[0].name, allPossibleStuff.competions[1].name, allPossibleStuff.competions[2].name, allPossibleStuff.competions[3].name, allPossibleStuff.competions[4].name];
-                        urlPool = ["", "", "", "", ""]; //первый это цифровой прорыв
+                        urlPool = ["https://leadersofdigital.ru/faq", "", "", "", ""]; //первый это цифровой прорыв
+                        //куда отправлять? на дополнительную информацию
+                        //или сразу на faq? сейчас отправлю на faq
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);
+                    }
+
+                    case 'digitalBreakFAQ' : {
+                        idPool = ["Общие вопросы о конкурсе", "Этап 'регистрация'", "О команде и командообразовании", "Задания на тематические хакатоны"];
+                        //urlPool = [];
                         message = "";
                         type = "finishButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);
+                    }
+
+                    case 'basicQuestions' : {
+                        idPool = ["Что такое хакатон, и как он будет проводиться?", "Этап 'регистрация'", "О команде и командообразовании", "Задания на тематические хакатоны"];
+                        message = "";
+                        type = "finishButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
                     }
     
                     case 'noAnswer' : {
