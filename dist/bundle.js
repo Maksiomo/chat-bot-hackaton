@@ -271,7 +271,7 @@ connection.onmessage = function (income) {
     
     
 };
-var btn = new Button('siteNavigation', getContentById('siteNavigation'), "bot");
+var btn = new Button('iAmRegistered', getContentById('iAmRegistered'), "bot"); //TODO: не забудь прописать меня в айдишниках
 btn.event();
 
 },{"ws":2}],2:[function(require,module,exports){

@@ -40,8 +40,9 @@ let idPool: string[];
 let urlPool: string[];
 let type:string;
 let message: string;
+let source: string;
 
-let qwe = {
+let allPossibleStuff = {
     competions: [
         {name: "Лидеры России",
         tags: ["3", "4"]}, 
@@ -69,10 +70,7 @@ let qwe = {
         tags: ["2", "3"]},
         {name: "Фестиваль 'Российская студенческая весна'",
         tags: ["2", "4"]}
-    ]
-}
-
-let track = {
+    ],
     testsMap: [
         {name: "Мотивы труда",
         tags: ["3", "5"]},
@@ -115,13 +113,13 @@ const server = http.createServer(test);
 
 server.listen(3000, () => console.log("Server started!"));
 
-test.get('/getSomeUserData', function(req, res) {
+// test.get('/getSomeUserData', function(req, res) {
 
-    var response = {
-        type: 'chatToken',
-        data: uuid()};
-    res.send(response);
-});
+//     var response = {
+//         type: 'chatToken',
+//         data: uuid()};
+//     res.send(response);
+// });
 
 const wsServer = new ws.Server({
     server: server
@@ -129,8 +127,8 @@ const wsServer = new ws.Server({
 
 wsServer.on('connection', function(socket) {
 
-    var login: string = '';
-    var registered: boolean = false;
+    // var login: string = '';
+    // var registered: boolean = false;
 
     socket.on('open', function() {
         console.log("connection established");
@@ -142,108 +140,47 @@ wsServer.on('connection', function(socket) {
 
         //console.log(income);
 
-        if (data.type === "welcome") {
-            type = "welcome";
-            message = "Приветствую, я Helpy - ваш гид по нашей платформе! Чем я могу помочь на этот раз?";
-            util.createResponse(type, message);
-        } else if (data.type === "message") {
-            //мои попытки имеют комменты, так что есчо стираем
-            switch (data.buttonId) {
-                case 'siteNavigation' : {
-                    idPool= ["learningPage", "projectPage", "progressPage", "successPage", "return"];
-                    type = "changeButtons";
-                    message = "У нас на сайте есть следующие разделы:";
-                    util.createResponse(type, message, idPool);
-                    break;
-                }
+        if (data.source === "bot") {
+            if (data.type === "welcome") {
+                type = "welcome";
+                message = "Приветствую, я Helpy - ваш гид по нашей платформе! Для того чтобы получить доступ ко всем возможностям сайта, прошу вас пройти регистрацию. А если хотите получить от меня пару дельных советов, то укажите также свои компетенции и сферу деятельности.";
+                source  = "bot";
+                util.createResponse(type, message, source);
+            } else if (data.type === "message") {
+                //мои попытки имеют комменты, так что есчо стираем
+                switch (data.buttonId) {
 
-                case 'faq' : {
-                    idPool = ["1", "2", "3", "4", "5", "6", "7"];
-                    type = "changeButtons";
-                    message = "Часто задаваемые вопросы:";
-                    util.createResponse(type, message, idPool);
-                    break;
-
-                }
-            
-                case 'mainPage' : {
-                    idPool = ["mainPage"];
-                    type = "changeButtons";
-                    message = "";
-                    util.createResponse(type, message, idPool);
-                    break;
-                } //главная
-                case 'successPage' : { //истории успеха
-                    //подменю нет
-                    type = "finishButton"; //отличается от других кнопок
-                    message = "Мы поможем вам стать лучше, для этого у нас есть следующие разделы:";
-                    util.createResponse(type, message);
-                    break;
-                }
-
-                case 'projectsPage' : { //проекты
-                    idPool = ["1", "2", "3"];
-                    type = "changeButtons";
-                    message = "Мы не любим сидеть на месте и постоянно проводим ивенты";
-                    util.createResponse(type, message, idPool);
-                    break;
-                }
-                case 'learningPage' : { //обучение
-                    idPool = ["webinarPage", "coursesPage"];
-                    type = "changeButtons";
-                    message = "Каждый день на нашей платформе появляются новые курсы и вебинары, на которых можно не только узнать что то новое, но и испытать свои навыки. Что именно вы хотели бы попробовать на этот раз?";
-                    util.createResponse(type, message, idPool);
-                    break;
-                }
-
-                case 'webinarPage' : {
-                    type = "showUrls";
-                    message = "Вот несколько вебинаров, которые пройдут очень скоро:"
-                    urlPool =["https://rsv.ru/portal/edu/webinars/1/104?mView=detail", "https://rsv.ru/portal/edu/webinars/1/111?mView=detail", "https://rsv.ru/portal/edu/webinars/1/122?mView=detail"];
-                    util.createResponse(type, message, idPool, urlPool);
-                    break;
-                }
-
-                case 'coursesPage' : {
-                    type = "showUrls";
-                    message = "Вот несколько курсов, которые начнутся очень скоро:"
-                    urlPool = ["https://rsv.ru/portal/edu/courses/1/543?mView=detail", "https://rsv.ru/portal/edu/courses/1/541?mView=detail", "https://rsv.ru/portal/edu/courses/1/540?mView=detail"];
-                    util.createResponse(type, message, idPool, urlPool);
-                    break;
-                }
-                
-                case 'lkPage' : { //личный кабинет
-                    idPool = ["1", "2", "3"];
-                    type = "changeButtons";
-                    message = defaultMsg;
-                    util.createResponse(type, message, idPool);
-                    break;
-
-                }
-
-                case 'progressPage': { //трек развития
-                    idPool = ["1", "2", "3", "4"];
-                    type = "changeButtons";
-                    message = "Мы поможем вам стать лучше, для этого у нас есть следующие разделы:";
-                    util.createResponse(type, message, idPool);
-                    break;
-                }
-
-                case 'noAnswer' : {
-                    message = "К сожалению, моих сил не достаточно, чтобы вам помочь. :( Вы можете обратиться за помощью к специалисту службы поддержки, написав свой вопрос в поле снизу.";
-                    type = "noAnswer"; 
-                    util.createResponse(type, message);                    
-                }
-
-                default: {
-                    idPool = ["mainPage"];
-                    type = "changeButtons";
-                    message = "Invalid button! Return to main page.";
-                    util.createResponse(type, message, idPool);
-                    break;
+                    case 'iAmRegistered' :{
+                        message = "Отлично, теперь давайте как я поищу для вас что нибудь интересное...";
+                        type = "changeButtons";
+                        source = "bot";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+    
+                    case 'noAnswer' : {
+                        message = "К сожалению, моих сил не достаточно, чтобы вам помочь. :( Вы можете обратиться за помощью к специалисту службы поддержки, написав свой вопрос в поле снизу.";
+                        type = "noAnswer"; 
+                        source = "bot";
+                        util.createResponse(type, message, source);           
+                        break;         
+                    }
+    
+                    default: {
+                        idPool = ["mainPage"];
+                        type = "changeButtons";
+                        message = "Invalid button! Return to main page.";
+                        source = "bot";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
                 }
             }
+        } else if (data.source === "faq"){
+
         }
+
+        
     });
 
     socket.on('close', function (){
@@ -252,7 +189,7 @@ wsServer.on('connection', function(socket) {
 
     
     const util ={
-        createResponse: (type: string, smessage: string, idsPool?:string[], urlsPool?:string[]) => {
+        createResponse: (type: string, smessage: string, ssource: string, idsPool?:string[], urlsPool?:string[]) => {
             //может и стоит разбить конечный выбор и выбор с продолжением
             //но пока по ? кидаются в одну функцию
             if(urlsPool){
