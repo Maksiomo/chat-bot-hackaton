@@ -32,12 +32,19 @@
     }
   </script>
 </head>
-<body>
+<style>
+    body { background: url(./images/backGround.png); }
+</style>
+<body >
+    <img id="botOpen" src="./images/botIcon.png" alt="error="> 
+    <style>
+        #widget { background:#f7fbfc url(./images/siteBackground.png);}
+    </style>
     <div id="widget" class="container">            
         <div id="header" class="container">
-            <img src="./images/bot-avater.png" alt="error="> 
+            <img src="./images/botIcon.png" alt="error="> 
             <header-text text="header-text">
-                <p>Helpy - Навигатор по сайту</p>
+                <p>NaviBot - Навигатор по сайту</p>
             </header-text>
             <img id="exit" src="./images/exitButton.png" alt="error"> 
             </body>
@@ -52,19 +59,29 @@
         
         <!-- Tab content -->
         <div id="faqTab" class="tabcontent">
+            <style>
+                .faqChat { background:#f7fbfc url(./images/siteBackground.png);}
+            </style>
             <div id="faqChat" class="container"></div>  
             <div id="faqButtonContainer" class="container"></div>
         </div>
         
         <div id="botTab" class="tabcontent">
+            <style>
+                .botChat { background:#f7fbfc url(./images/siteBackground.png);}
+            </style>
             <div id="botChat" class="container"></div>  
             <div id="botButtonContainer" class="container"></div>
         </div>
-        
+        <style>
+            .chatTab { background:#f7fbfc url(./images/siteBackground.png);}
+        </style>
         <div id="chatTab" class="tabcontent">
             <div id="chat" class="container"></div>            
         </div>      
-        
+        <style>
+            .voiceTab { background:#f7fbfc url(./images/siteBackground.png);}
+        </style>
         <div id="voiceTab" class="tabcontent">
             <h3>Voice</h3>
             <p>This is the tab with Voice.</p>
