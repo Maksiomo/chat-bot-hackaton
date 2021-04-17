@@ -6,7 +6,7 @@ var chatDiv = document.getElementById('chat');
 //Подключение контейнера для кнопок
 var buttonsDiv = document.getElementById('buttonContainer');
 //Переменная, хранящая токен пользователя
-var token = 'token';
+var token = "token";
 //Создание вебсокета
 var connection = new WebSocket('ws://localhost:3000');
 /*
@@ -170,18 +170,20 @@ var Button = /** @class */ (function () {
     return Button;
 }());
 ;
-/*const util = {
+
+const util = {
     getToken: (async () => {
         let info = await axios.get("http://localhost:3000/chatToken");
         token = info.data;
         console.log(token);
     })
 };
-*/
+
 //get-запрос для получения токена (не работает)
 connection.onopen = function(event) {
     let headers = new Headers();
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+    util.getToken();
     console.log("connected");
 };
 /*
