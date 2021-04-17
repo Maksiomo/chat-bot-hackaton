@@ -144,7 +144,7 @@ let allPossibleStuff = {
         {name: "Лидеры России. Политика",tags: ["5", "6", "8"],url: ""}
     ],
     events: [
-        {name: "Мастерская управлния 'Сенеж'",tags: ["1", "3"],url: ""},
+        {name: "Мастерская управления 'Сенеж'",tags: ["1", "3"],url: ""},
         {name: "Культурный код",tags: ["4", "5"],url: ""}
     ],
     projects: [
@@ -324,7 +324,7 @@ wsServer.on('connection', function(socket) {
                         util.createResponse(type, message, source, idPool, urlPool);
                     }
 
-                    case 'digitalBreakFAQ' : {
+                    /* case 'digitalBreakFAQ' : {
                         idPool = ["Общие вопросы о конкурсе", "Этап 'регистрация'", "О команде и командообразовании", "Задания на тематические хакатоны"];
                         //urlPool = [];
                         message = "";
@@ -339,7 +339,7 @@ wsServer.on('connection', function(socket) {
                         type = "finishButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool);
-                    }
+                    } */
     
                     case 'noAnswer' : {
                         message = "К сожалению, моих сил не достаточно, чтобы вам помочь. :( Вы можете обратиться за помощью к специалисту службы поддержки, написав свой вопрос в поле снизу.";
