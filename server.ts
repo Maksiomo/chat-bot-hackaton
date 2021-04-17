@@ -115,7 +115,7 @@ wsServer.on('connection', function(socket) {
             switch (data.buttonId) {
                 case 'siteNavigation' : {
                     idPool= ["1", "2", "3", "4", "5", "6"];
-                    type = "changeButtons";
+                    type = "У нас на сайте есть следующие разделы:";
                     message = defaultMsg;
                     util.createResponse(type, message, idPool);
                     break;
@@ -124,7 +124,7 @@ wsServer.on('connection', function(socket) {
                 case 'faq' : {
                     idPool = ["1", "2", "3", "4", "5", "6", "7"];
                     type = "changeButtons";
-                    message = defaultMsg;
+                    message = "Часто задаваемые вопросы:";
                     util.createResponse(type, message, idPool);
                     break;
 
@@ -134,13 +134,25 @@ wsServer.on('connection', function(socket) {
                 case 'successPage' : { //истории успеха
                     //подменю нет
                     type = "finishButton"; //отличается от других кнопок
-                    message = "end of chain";
+                    message = "Мы поможем вам стать лучше, для этого у нас есть следующие разделы:";
                     util.createResponse(type, message);
                     break;
                 }
 
-                case 'projectsPage' : //проекты
-                case 'learningPage' : //обучение
+                case 'projectsPage' : { //проекты
+                    idPool = ["1", "2", "3"];
+                    type = "Мы не любим сидеть на месте и постоянно проводим ивенты";
+                    message = defaultMsg;
+                    util.createResponse(type, message, idPool);
+                    break;
+                }
+                case 'learningPage' : { //обучение
+                    idPool = ["1", "2", "3"];
+                    type = "Мы не любим сидеть на месте и постоянно проводим ивенты";
+                    message = defaultMsg;
+                    util.createResponse(type, message, idPool);
+                    break;
+                }
                 
                 case 'lkPage' : { //личный кабинет
                     idPool = ["1", "2", "3"];
@@ -153,7 +165,7 @@ wsServer.on('connection', function(socket) {
 
                 case 'progressPage': { //трек развития
                     idPool = ["1", "2", "3", "4"];
-                    type = "subChangeButtons";
+                    type = "Мы поможем вам стать лучше, для этого у нас есть следующие разделы:";
                     message = defaultMsg;
                     util.createResponse(type, message, idPool);
                     break;
