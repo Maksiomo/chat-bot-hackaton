@@ -14,11 +14,13 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 } 
+
 #header img {
-    position: relative;
-    left: 8px;
-    top: 8px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
 }
+
 #header header-text {
     position: absolute;
     left: 66px;
@@ -27,6 +29,12 @@
     font-size: 15px;
     color: white;
 }
+
+img#exit{
+    left: 275px;
+    top: 15px;
+}
+
 #chat {
     overflow: auto;
     width: 290px;
