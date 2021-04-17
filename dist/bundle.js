@@ -90,9 +90,19 @@ function getContentById(id) {
                 return 'Навигация по сайту';
             }
             ;
-        case "faq":
+        case 'successPage':
             {
-                return 'Частые вопросы';
+                return 'Истории успеха';
+            }
+            ;
+        case 'lkPage':
+            {
+                return 'Личный кабинет';
+            }
+            ;
+        case 'progressPage':
+            {
+                return 'Трек развития';
             }
             ;
         default:
