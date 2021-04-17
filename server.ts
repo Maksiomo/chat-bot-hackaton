@@ -44,7 +44,7 @@ let source: string;
 
 let allPossibleStuff = {
     competions: [
-        {name: "Лидеры России",
+        {name: "Цифровой прорыв 2020",
         tags: ["3", "4"]}, 
         {name: "Твой ход",
         tags: ["1", "2", "3"]}, 
@@ -177,7 +177,85 @@ wsServer.on('connection', function(socket) {
                 }
             }
         } else if (data.source === "faq"){
+            if (data.type === "welcome") {
+                type = "welcome";
+                message = "Приветствую, я Helpy - ваш гид по нашей платформе! Для того чтобы получить доступ ко всем возможностям сайта, прошу вас пройти регистрацию. А если хотите получить от меня пару дельных советов, то укажите также свои компетенции и сферу деятельности.";
+                source  = "bot";
+                util.createResponse(type, message, source);
+            } else if (data.type === "message") {
+                //мои попытки имеют комменты, так что есчо стираем
+                switch (data.buttonId) {
 
+                    case 'progressTrack' :{
+                        idPool = ["testsMap", "professionsCatalog", "boostSkills", "beProfessional"];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
+
+                    case 'projects' :{
+                        idPool = ["competions", "events", "projects"];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
+
+                    case 'learning' :{
+                        idPool = ["online_courses", "ofline_events", "webinar"];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
+
+                    case 'successStories' :{
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'helpOthers' :{
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'competions' : {
+                        idPool = [allPossibleStuff.competions[0].name, allPossibleStuff.competions[1].name, allPossibleStuff.competions[2].name, allPossibleStuff.competions[3].name, allPossibleStuff.competions[4].name];
+                        urlPool = ["", "", "", "", ""]; //первый это цифровой прорыв
+                        message = "";
+                        type = "finishButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);
+                    }
+    
+                    case 'noAnswer' : {
+                        message = "К сожалению, моих сил не достаточно, чтобы вам помочь. :( Вы можете обратиться за помощью к специалисту службы поддержки, написав свой вопрос в поле снизу.";
+                        type = "noAnswer"; 
+                        source = "faq";
+                        util.createResponse(type, message, source);           
+                        break;         
+                    }
+    
+                    default: {
+                        idPool = ["mainPage"];
+                        type = "changeButtons";
+                        message = "Invalid button! Return to main page.";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
+                }
+            }
         }
 
         
