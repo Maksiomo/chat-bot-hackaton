@@ -116,8 +116,8 @@ wsServer.on('connection', function(socket) {
             switch (data.buttonId) {
                 case 'siteNavigation' : {
                     idPool= ["learningPage", "projectPage", "progressPage", "successPage", "return"];
-                    type = "У нас на сайте есть следующие разделы:";
-                    message = defaultMsg;
+                    type = "changeButtons";
+                    message = "У нас на сайте есть следующие разделы:";
                     util.createResponse(type, message, idPool);
                     break;
                 }
