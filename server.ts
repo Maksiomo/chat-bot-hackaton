@@ -166,6 +166,7 @@ wsServer.on('connection', function(socket) {
                     message = "Вот несколько вебинаров, которые пройдут очень скоро:"
                     urlPool =["https://rsv.ru/portal/edu/webinars/1/104?mView=detail", "https://rsv.ru/portal/edu/webinars/1/111?mView=detail", "https://rsv.ru/portal/edu/webinars/1/122?mView=detail"];
                     util.createResponse(type, message, idPool, urlPool);
+                    break;
                 }
 
                 case 'coursesPage' : {
@@ -173,6 +174,7 @@ wsServer.on('connection', function(socket) {
                     message = "Вот несколько курсов, которые начнутся очень скоро:"
                     urlPool = ["https://rsv.ru/portal/edu/courses/1/543?mView=detail", "https://rsv.ru/portal/edu/courses/1/541?mView=detail", "https://rsv.ru/portal/edu/courses/1/540?mView=detail"];
                     util.createResponse(type, message, idPool, urlPool);
+                    break;
                 }
                 
                 case 'lkPage' : { //личный кабинет
@@ -226,6 +228,7 @@ wsServer.on('connection', function(socket) {
                     urlPool: urlsPool
                 }
                 socket.send(JSON.stringify(response));
+                
             } else if(idsPool){
 
                 let response = {
