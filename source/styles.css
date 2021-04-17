@@ -8,11 +8,23 @@
     border-radius: 0px;
 } 
 #header {
-    overflow: auto;
     width: 300px;
     height: 60px;
     background-color: #3874E0;
 } 
+#header img {
+    position: relative;
+    left: 8px;
+    top: 8px;
+}
+#header header-text {
+    position: absolute;
+    left: 66px;
+    top: 15px;
+    font-family: "ProximaNovaSemiBold";
+    font-size: 15px;
+    color: white;
+}
 #chat {
     overflow: auto;
     width: 290px;
