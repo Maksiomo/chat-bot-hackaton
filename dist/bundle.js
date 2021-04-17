@@ -164,6 +164,8 @@ var Button = /** @class */ (function () {
             msg.type = "message";
             msg.buttonId = _this.id;
 
+            //console.log(msg);
+
             connection.send(JSON.stringify(msg));
         });
     };

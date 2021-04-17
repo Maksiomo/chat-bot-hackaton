@@ -4,10 +4,37 @@ import * as cors from "cors";
 import * as express from "express";
 import * as http from "http";
 import {EJSON} from "bson";
+import { utimes } from "node:fs";
 
 const defaultMsg: string = "click recieved";
 
 const test = express();
+
+let userDataArray = [];
+
+const serverUtil ={
+    createUser: (userID: string, isRegistred:boolean, skills: string[]) => {
+        let user = {
+            id: userID,
+            isReg: isRegistred,
+            allSkills: skills
+        }
+        userDataArray.push(user);
+    },
+
+    checkForUser: (userID: string, isReg:boolean, skills: string[]) => {
+        let isRegistered: boolean = false;
+        for (let user of userDataArray ){
+            if (user.id === userID) {
+                return true;
+            }
+        }
+        if (isRegistered) {
+            serverUtil.createUser(userID, isReg, skills);
+        }
+        return false;
+    }
+}
 
 let idPool: string[];
 let type:string;
@@ -52,7 +79,8 @@ const server = http.createServer(test);
 
 server.listen(3000, () => console.log("Server started!"));
 
-test.get('/chatToken', function(req, res) {
+test.get('/getSomeUserData', function(req, res) {
+
     var response = {
         type: 'chatToken',
         data: uuid()};
@@ -75,6 +103,8 @@ wsServer.on('connection', function(socket) {
     socket.on('message', function(income: any) {
 
         let data = JSON.parse(income);
+
+        //console.log(income);
 
         if (data.type === "welcome") {
             type = "welcome";
@@ -111,9 +141,10 @@ wsServer.on('connection', function(socket) {
 
                 case 'projectsPage' : //проекты
                 case 'learningPage' : //обучение
+                
                 case 'lkPage' : { //личный кабинет
                     idPool = ["1", "2", "3"];
-                    type = "ChangeButtons";
+                    type = "changeButtons";
                     message = defaultMsg;
                     util.createResponse(type, message, idPool);
                     break;
@@ -130,6 +161,14 @@ wsServer.on('connection', function(socket) {
 
                 case 'noAnswer' : {
                     
+                }
+
+                default: {
+                    idPool = ["siteNavigation"];
+                    type = "changeButtons";
+                    message = "Invalid button! Return to main page.";
+                    util.createResponse(type, message, idPool);
+                    break;
                 }
             }
         }
@@ -164,7 +203,7 @@ wsServer.on('connection', function(socket) {
         
             //socket.send(response); раньше был общий
             //но сейчас его подчеркивает
-            }
+        }
     };
 
 
