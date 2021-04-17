@@ -1,4 +1,7 @@
 "use strict";
+
+import axios from "axios"
+
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -19,7 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var $ = __importStar(require("jquery"));
 //Подключение контейнера для сообщений
 var chatDiv = document.getElementById('chat');
 //Подключение контейнера для кнопок
@@ -185,18 +187,9 @@ var Button = /** @class */ (function () {
 connection.onopen = function (event) {
     var headers = new Headers();
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:3000/chatToken',
-        success: function (answear) {
-            var jsonGet = JSON.parse(answear);
-            token = jsonGet.chatToken;
-            updateButtons(['siteNavigation']);
-        },
-        error: function (answear, status, error) {
-            alert('Error - ' + answear.status + ': ' + answear.statusText);
-        }
-    });
+    const response = await axios.get("//localhost:3000/chatToken");
+    token = response.data;
+    console.log(token);
 };
 /*
 * Слушатель сообщений от сервера

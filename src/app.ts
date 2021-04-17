@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 //Подключение контейнера для сообщений
 const chatDiv: HTMLElement | null = document.getElementById('chat');
 //Подключение контейнера для кнопок
@@ -138,18 +137,6 @@ class Button{
 connection.onopen = function(event) {
     let headers = new Headers();
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:3000/chatToken',
-        success: function(answear) {
-            let jsonGet = JSON.parse(answear);
-            token = jsonGet.chatToken;
-            updateButtons(['siteNavigation']);
-        },
-        error: function(answear, status, error) {
-            alert('Error - ' + answear.status + ': ' + answear.statusText);
-        }
-    });
 };
 /*
 * Слушатель сообщений от сервера
