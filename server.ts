@@ -257,7 +257,104 @@ wsServer.on('connection', function(socket) {
                 }
             }
         } else if (data.source === "faq"){
+            if (data.type === "welcome") {
+                type = "welcome";
+                message = "Приветствую, я Helpy - ваш гид по нашей платформе! Для того чтобы получить доступ ко всем возможностям сайта, прошу вас пройти регистрацию. А если хотите получить от меня пару дельных советов, то укажите также свои компетенции и сферу деятельности.";
+                source  = "bot";
+                util.createResponse(type, message, source);
+            } else if (data.type === "message") {
+                //мои попытки имеют комменты, так что есчо стираем
+                switch (data.buttonId) {
 
+                    case 'progressTrack' :{
+                        idPool = ["testsMap", "professionsCatalog", "boostSkills", "beProfessional"];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
+
+                    case 'projects' :{
+                        idPool = ["competions", "events", "projects"];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
+
+                    case 'learning' :{
+                        idPool = ["online_courses", "ofline_events", "webinar"];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
+
+                    case 'successStories' :{
+                        message = "";
+                        type = "finishButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'helpOthers' :{
+                        message = "";
+                        type = "finishButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'competions' : {
+                        idPool = [allPossibleStuff.competitions[0].name, allPossibleStuff.competitions[1].name, allPossibleStuff.competitions[2].name, allPossibleStuff.competitions[3].name, allPossibleStuff.competitions[4].name];
+                        urlPool = ["https://leadersofdigital.ru/faq", "", "", "", ""]; //первый это цифровой прорыв
+                        //куда отправлять? на дополнительную информацию
+                        //или сразу на faq? сейчас отправлю на faq
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);
+                    }
+
+                    case 'digitalBreakFAQ' : {
+                        idPool = ["Общие вопросы о конкурсе", "Этап 'регистрация'", "О команде и командообразовании", "Задания на тематические хакатоны"];
+                        //urlPool = [];
+                        message = "";
+                        type = "finishButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);
+                    }
+
+                    case 'basicQuestions' : {
+                        idPool = ["Что такое хакатон, и как он будет проводиться?", "Этап 'регистрация'", "О команде и командообразовании", "Задания на тематические хакатоны"];
+                        message = "";
+                        type = "finishButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                    }
+    
+                    case 'noAnswer' : {
+                        message = "К сожалению, моих сил не достаточно, чтобы вам помочь. :( Вы можете обратиться за помощью к специалисту службы поддержки, написав свой вопрос в поле снизу.";
+                        type = "noAnswer"; 
+                        source = "faq";
+                        util.createResponse(type, message, source);           
+                        break;         
+                    }
+    
+                    default: {
+                        idPool = ["mainPage"];
+                        type = "changeButtons";
+                        message = "Invalid button! Return to main page.";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool);
+                        break;
+                    }
+                }
+            }
         }
 
         
