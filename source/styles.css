@@ -1,0 +1,91 @@
+#widget {
+    width: 300px;
+    height: 500px;
+    padding: 0px;
+    border: solid 0px black;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 0px;
+} 
+#header {
+    overflow: auto;
+    width: 300px;
+    height: 60px;
+    background-color: #3874E0;
+} 
+#chat {
+    overflow: auto;
+    width: 290px;
+    height: 330px;
+    padding: 5px;
+    background-color: #EFF3F6;
+    border-top: solid 0px black;
+    border-bottom: solid 0px black;
+} 
+.userMessage {
+    overflow: auto;
+    border: 1px solid #979797d5;
+    background-color: #EFF3F6;
+    border-radius: 8px;
+    padding: 3px;
+    margin: 5px 0;
+    font-family: "ProximaNovaRegular";
+    font-size: 14px;
+}
+.botMessage {
+    overflow: auto;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 3px;
+    margin: 5px 0;
+    font-family: "ProximaNovaRegular";
+    font-size: 14px;
+}
+#chat::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+#Sender {
+    float: left;
+    color: #999;
+}
+#Time {
+    float: right;
+    color: #999;
+}
+#buttonContainer {
+    width: 290px;
+    height: 90px;
+    padding: 5px;
+    background-color: #FFFFFF;
+}
+.button {
+    border: 2px solid #214994;
+    background-color: #3874E0;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 2px 0;
+    font-family: "ProximaNovaSemibold";
+    font-size: 12px;
+    color: white;
+}
+@font-face {
+    font-family: "ProximaNovaBold";
+    src: url("../fonts/ProximaNovaBold.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+@font-face {
+    font-family: "ProximaNovaRegular";
+    src: url("../fonts/ProximaNovaRegular.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+@font-face {
+    font-family: "ProximaNovaSemibold";
+    src: url("../fonts/ProximaNovaSemibold.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
