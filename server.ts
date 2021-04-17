@@ -116,8 +116,8 @@ wsServer.on('connection', function(socket) {
             switch (data.buttonId) {
                 case 'siteNavigation' : {
                     idPool= ["learningPage", "projectPage", "progressPage", "successPage", "return"];
-                    type = "У нас на сайте есть следующие разделы:";
-                    message = defaultMsg;
+                    type = "changeButtons";
+                    message = "У нас на сайте есть следующие разделы:";
                     util.createResponse(type, message, idPool);
                     break;
                 }
@@ -148,8 +148,8 @@ wsServer.on('connection', function(socket) {
 
                 case 'projectsPage' : { //проекты
                     idPool = ["1", "2", "3"];
-                    type = "Мы не любим сидеть на месте и постоянно проводим ивенты";
-                    message = defaultMsg;
+                    type = "changeButtons";
+                    message = "Мы не любим сидеть на месте и постоянно проводим ивенты";
                     util.createResponse(type, message, idPool);
                     break;
                 }
@@ -166,6 +166,7 @@ wsServer.on('connection', function(socket) {
                     message = "Вот несколько вебинаров, которые пройдут очень скоро:"
                     urlPool =["https://rsv.ru/portal/edu/webinars/1/104?mView=detail", "https://rsv.ru/portal/edu/webinars/1/111?mView=detail", "https://rsv.ru/portal/edu/webinars/1/122?mView=detail"];
                     util.createResponse(type, message, idPool, urlPool);
+                    break;
                 }
 
                 case 'coursesPage' : {
@@ -173,6 +174,7 @@ wsServer.on('connection', function(socket) {
                     message = "Вот несколько курсов, которые начнутся очень скоро:"
                     urlPool = ["https://rsv.ru/portal/edu/courses/1/543?mView=detail", "https://rsv.ru/portal/edu/courses/1/541?mView=detail", "https://rsv.ru/portal/edu/courses/1/540?mView=detail"];
                     util.createResponse(type, message, idPool, urlPool);
+                    break;
                 }
                 
                 case 'lkPage' : { //личный кабинет
@@ -186,8 +188,8 @@ wsServer.on('connection', function(socket) {
 
                 case 'progressPage': { //трек развития
                     idPool = ["1", "2", "3", "4"];
-                    type = "Мы поможем вам стать лучше, для этого у нас есть следующие разделы:";
-                    message = defaultMsg;
+                    type = "changeButtons";
+                    message = "Мы поможем вам стать лучше, для этого у нас есть следующие разделы:";
                     util.createResponse(type, message, idPool);
                     break;
                 }
@@ -226,6 +228,7 @@ wsServer.on('connection', function(socket) {
                     urlPool: urlsPool
                 }
                 socket.send(JSON.stringify(response));
+                
             } else if(idsPool){
 
                 let response = {

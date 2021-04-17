@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./source/styles.css">
+    <link rel="stylesheet" href="./source/chat.css">
     <title>Chat</title>
     <style>
     </style>
@@ -73,15 +74,60 @@
             <div id="botChat" class="container"></div>  
             <div id="botButtonContainer" class="container"></div>
         </div>
-        <style>
-            .chatTab { background:#f7fbfc url(./images/siteBackground.png);}
-        </style>
-        <div id="chatTab" class="tabcontent">
-            <div id="chat" class="container"></div>            
-        </div>      
-        <style>
-            .voiceTab { background:#f7fbfc url(./images/siteBackground.png);}
-        </style>
+        
+        <div id="chatTab" class="tabcontent chatTab" >
+    
+            <div class="chatHeader">
+                <button class="btnBack"> &#11164 Назад</button>
+                <span class="chatTitle">Projects</span>
+            </div>
+        
+            <div id="chatBody" class="chatBody">
+                         
+                <div class="chatMessage yourChatMessage">
+                    <div class="messageHeader">
+                        <span class="messageTime">15:50</span>
+                        <button class="btnAnswer"> &#11178 </button>
+                        <div class="replyChatMessage"></div>
+                    </div>
+                    <span class="messageContent">Всем привет!</span>
+                </div>
+        
+                <div class="chatMessage otherChatMessage">
+                    <div class="messageHeader">
+                        <span class="userName">Василийfsddf sfsfs sdsdsd sds </span>
+                        <span class="messageTime">15:51</span>
+                        <button class="btnAnswer"> &#11178 </button>
+                        <div class="replyChatMessage"></div>
+                    </div>
+                    <span class="messageContent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptate ipsa, tempora nihil, corporis iusto sunt doloribus ratione unde a perspiciatis dignissimos neque earum aperiam veniam cum harum delectus distinctio?</span>
+                </div>
+        
+                <div class="chatMessage otherChatMessage">
+                    <div class="messageHeader">
+                        <span class="userName">Марина</span>
+                        <span class="messageTime">15:52</span>
+                        <button class="btnAnswer"> &#11178 </button>
+                    </div>
+                    <div class="replyChatMessage">
+                        <span class="userName" style="font-size: 10px;">Олег</span><br>
+                        <span class="answerContent">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem porro, accusantium accusamus atque vitae ad cum, molestias iste harum facere rerum voluptate ipsa perspiciatis necessitatibus sapiente? Quos at explicabo deleniti!</span>
+                    </div>
+                    
+                    <span class="messageContent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde distinctio reiciendis debitis ad voluptas, corrupti autem quam reprehenderit necessitatibus aspernatur obcaecati facere tenetur similique ea optio velit, voluptate eos vitae.</span>
+                </div>
+            </div>
+        
+            <div class="chatFooter">
+                <div>
+                    <button class="cancelreplyChatMessage">Отменить &#10060 </button>
+                </div>
+                <input type="text">
+                <button class="emoji"> &#128578 </button>
+                <button class="sendMessage">Send &#11165</button>
+            </div>
+        </div>     
+        
         <div id="voiceTab" class="tabcontent">
             <h3>Voice</h3>
             <p>This is the tab with Voice.</p>

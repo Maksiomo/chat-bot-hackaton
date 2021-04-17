@@ -259,6 +259,11 @@ connection.onmessage = function (income) {
             top: 999999,
             behavior: 'smooth'
         });
+    } else if (message.msgType === "showUrls"){
+        addMessage(message.message, "bot");
+        for (url of message.urlPool) {
+            addMessage(url, "bot");
+        }
     }
     
 };
