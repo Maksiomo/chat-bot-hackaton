@@ -272,28 +272,31 @@ wsServer.on('connection', function(socket) {
 
                     case 'progressTrack' :{
                         idPool = ["testsMap", "professionsCatalog", "boostSkills", "beProfessional"];
+                        urlPool = [];
                         message = "";
                         type = "changeButtons";
                         source = "faq";
-                        util.createResponse(type, message, source, idPool);
+                        util.createResponse(type, message, source, idPool, urlPool);
                         break;
                     }
 
                     case 'projects' :{
                         idPool = ["competions", "events", "projects"];
+                        urlPool = [];
                         message = "";
                         type = "changeButtons";
                         source = "faq";
-                        util.createResponse(type, message, source, idPool);
+                        util.createResponse(type, message, source, idPool, urlPool);
                         break;
                     }
 
                     case 'learning' :{
                         idPool = ["online_courses", "ofline_events", "webinar"];
+                        urlPool = [];
                         message = "";
                         type = "changeButtons";
                         source = "faq";
-                        util.createResponse(type, message, source, idPool);
+                        util.createResponse(type, message, source, idPool, urlPool);
                         break;
                     }
 
