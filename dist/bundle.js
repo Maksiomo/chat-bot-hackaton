@@ -68,10 +68,11 @@ function addUrl (message) {
     примает текст сообщения и автора
 */
 
-    function addMessageToFAQ(message) {
+    function addUrlToFAQ(message) {
+        let blank = "_blank";
         var newDiv = document.createElement('div');
             newDiv.setAttribute("class", "container botMessage");
-            newDiv.innerHTML = message;
+            newDiv.innerHTML = "<a href =" + message +" target = "+ blank +">FAQ Циврового Прорыва</a>";;
         if (faqDiv) {
             faqDiv.appendChild(newDiv);
         };
@@ -114,7 +115,17 @@ function createHTMLButton(id, content) {
     return newDiv;
 };
 
-
+function addInputAndSubmit() {
+    var newDiv = document.createElement('input');
+    newDiv.setAttribute("id", "inputMessage");
+    newDiv.setAttribute("type", "text");
+    newDiv.setAttribute("placeholder", "Введите сообщение");
+    var nextDiv = document.createElement('button');
+    
+    if (faqDiv) {
+        faqDiv.appendChild(newDiv);
+    };
+}
 
 /*
 Метод, удаляющий старые кнопки в контейнере 
@@ -139,6 +150,7 @@ function getContentById(id) {
         case 'goForIt': {return 'Найди-ка мне что нибудь'};
         case 'goEvenFurther': {return 'Найди-ка мне ещё что нибудь'};
         case 'return':{return 'Вернуться'};
+        case 'submit':{return 'Отправить'};
 
         case 'progressTrack': {return 'О Треке Развития'};
         case 'projects': {return 'О наших проектах'};
@@ -158,10 +170,15 @@ function getContentById(id) {
         case 'ofline_events':{return 'О наших мероприятиях'};
         case 'webinar': {return 'О наших вебинарах'};
         case 'whereToInputSpecial': {return 'Где мне найти расширенный профиль'};
-        case 'whyToSetSkills': {return 'Зачем мне нужно заполнять навыки и компетенции'};
+        case 'howToSetSkills': {return 'Зачем мне нужно заполнять навыки и компетенции'};
         case 'mentorProgramm': {return 'О менторской программе'};
         case 'russianVolounteer': {return "О 'Добровольце России'"};
         case 'dreamWithMe' : {return "О проекте 'Мечтай со мной'"};
+        case 'myFirstBuisness':{return "О конкурсе 'Мой первый бизнес'"};
+        case "tvoyHod": {return "О конкурсе 'Твой ход'"};
+        case "leadersOfDigital": {return "О конкурсе 'Цифровой Прорыв'"};
+        case "careerTime": {return "О конкурсе 'Время карьеры'"};
+        case "bolshayaPeremena": {return "О конкурсе 'Большая перемена'"};
         default:{return 'Invalid button'};
     };
 };
@@ -207,10 +224,11 @@ var Button = /** @class */ (function () {
     }
     Button.prototype.event = function () {
         var _this = this;
-        var btn = createHTMLButton(this.id, this.content);
-        btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', function () {
 
-            if (_this.source === "bot") {
+        if (_this.source === "bot") {
+            var btn = createHTMLButton(this.id, this.content);
+            btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', function () {
+    
                 addMessage(_this.content, 'user');
                 if (chatDiv) {
                     chatDiv.scroll({
@@ -218,39 +236,51 @@ var Button = /** @class */ (function () {
                         behavior: 'smooth'
                     });
                 }
-            }
-            
-            let msg = {
-                type: "",
-                buttonId: "",
-                source: ""
-            }
+                
+                let msg = {
+                    type: "",
+                    buttonId: "",
+                    source: ""
+                }
+    
+                msg.type = "message";
+                msg.buttonId = _this.id;
+                msg.source = _this.source;
+    
+                //console.log(msg);
+    
+                connection.send(JSON.stringify(msg));
+            });
+        } else if (_this.source === "faq") {
+            var btn = createHTMLButtonFAQ(this.id, this.content);
+            btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', function (){
+                let msg = {
+                    type: "",
+                    buttonId: "",
+                    source: ""
+                }
+    
+                msg.type = "message";
+                msg.buttonId = _this.id;
+                msg.source = _this.source;
+    
+                //console.log(msg);
+    
+                connection.send(JSON.stringify(msg));
+            });
+        }
 
-            msg.type = "message";
-            msg.buttonId = _this.id;
-            msg.source = _this.source;
 
-            //console.log(msg);
 
-            connection.send(JSON.stringify(msg));
-        });
+        
     };
     return Button;
 }());
-
-const util = {
-    getToken: (async () => {
-        let info = await axios.get("http://localhost:3000/chatToken");
-        token = info.data;
-        console.log(token);
-    })
-};
 
 //get-запрос для получения токена (не работает)
 connection.onopen = function(event) {
     let headers = new Headers();
     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-    //util.getToken();
     console.log("connected");
     let welcomeMsgBot = {
         type: "welcome",
@@ -293,9 +323,7 @@ connection.onmessage = function (income) {
                 idPool[i] = message.idPool[i];
             };
             updateButtons(idPool, buttonsDiv, 'bot');
-        } else if (message.msgType === "return"){
-            // TODO: напиши меня!!!! UPDATE: в принципе можно и не писать 
-        }  
+        }
         if (chatDiv) {
             chatDiv.scroll({
                 top: 999999,
@@ -304,13 +332,17 @@ connection.onmessage = function (income) {
         } 
     } else if (message.source === "faq") {
         if (message.msgType === "welcome") {
-
+            //console.log(message.idPool);
+            updateButtons(message.idPool, faqDiv, "faq");
         } else if (message.msgType === "changeButtons") {
-
+            updateButtons(message.idPool, faqDiv, 'faq');
         } else if (message.msgType === "showUrls") {
-
-        } else if (message.msgType === "return") {
-            // TODO: напиши меня тоже!!!!   UPDATE: тут в принципе тоже 
+            updateButtons(message.idPool, faqDiv, "faq");
+            addUrlToFAQ(message.urlPool[0]);
+        } else if (message.msgType === "previous") {
+           updateButtons(message.idPool, faqDiv, "faq");
+        } else if (message.msgType === "feedbackInput"){
+            removeOldButtons(faqDiv);
         }
     }
     

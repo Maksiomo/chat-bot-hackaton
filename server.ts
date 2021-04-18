@@ -11,6 +11,7 @@ const defaultMsg: string = "click recieved";
 const test = express();
 
 let userDataArray = [];
+let previousId =[];
 
 const serverUtil ={
     createUser: (userID: string, isRegistred:boolean, skills: string[]) => {
@@ -136,7 +137,7 @@ let source: string;
 
 let allPossibleStuff = {
     competitions: [
-        {name: "Цифровой прорыв 2020",tags: ["3", "4"],url: "https://leadersofdigital.ru/"}, 
+        {name: "Цифровой прорыв 2021",tags: ["3", "4"],url: "https://leadersofdigital.ru/"}, 
         {name: "Твой ход",tags: ["1", "2", "3"],url: "https://tvoyhod.online/"}, 
         {name: "Время карьеры",tags: ["5", "8"],url: "https://xn--80adjbxl0aeb4ii6a.xn--p1ai/"},
         {name: "Мой первый бизнес",tags:["8", "10"],url: "https://myfirstbusiness.ru/"},
@@ -263,14 +264,6 @@ wsServer.on('connection', function(socket) {
                         break;
                     }
     
-                    case 'noAnswer' : {
-                        message = "К сожалению, моих сил не достаточно, чтобы вам помочь. :( Вы можете обратиться за помощью к специалисту службы поддержки, написав свой вопрос в поле снизу.";
-                        type = "noAnswer"; 
-                        source = "bot";
-                        util.createResponse(type, message, source);           
-                        break;         
-                    }
-    
                     default: {
                         idPool = ["mainPage"];
                         type = "changeButtons";
@@ -284,210 +277,100 @@ wsServer.on('connection', function(socket) {
         } else if (data.source === "faq"){
             if (data.type === "welcome") {
                 type = "welcome";
-                message = "Приветствую, я Helpy - ваш гид по нашей платформе! Для того чтобы получить доступ ко всем возможностям сайта, прошу вас пройти регистрацию. А если хотите получить от меня пару дельных советов, то укажите также свои компетенции и сферу деятельности.";
+                idPool = ["progressTrack", "projects", "learning", "helpOthers", "lkNavigation", "support"];
                 source  = "faq";
-                util.createResponse(type, message, source);
+                util.createResponseFAQ(type, source, idPool);
             } else if (data.type === "message") {
          
                 switch (data.buttonId) {
 
-                    case 'lk' : {
-                        idPool = ["track", "competences", "testing"];
-                        urlPool = ["https://rsv.ru/account/track", "https://rsv.ru/account/competences", "https://rsv.ru/account/testing"];
-                        message = "";
-                        source = "faq";
-                        type = "changeButtons";
-                        util.createResponse(type, message, source, idPool, urlPool);
-                        break;
-                    }
-
-                    case 'track' : {
-                        message = "";
-                        source = "faq";
-                        type = "finishButtons";
-                        util.createResponse(type, message, source);
-                        break;
-                    }
-
-                    case 'competences' : {
-                        message = "";
-                        source = "faq";
-                        type = "finishButtons";
-                        util.createResponse(type, message, source);
-                        break;
-                    }
-
-                    case 'testing' : {
-                        message = "";
-                        source = "faq";
-                        type = "finishButtons";
-                        util.createResponse(type, message, source);
-                        break;
-                    }
-
                     case 'progressTrack' :{
-                        idPool = ["testsMap", "professionsCatalog", "boostSkills", "beProfessional"];
-                        urlPool = [];
-                        message = "";
+                        previousId = ["sendWelcome"];
+                        idPool = ["testsMap", "professionsCatalog", "boostSkills", "beProfessional", "return"];
                         type = "changeButtons";
                         source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);
+                        util.createResponseFAQ(type,source, idPool);
                         break;
                     }
-
-                    case 'projects' :{ //внешние проекты
-                        idPool = ["competitions", "events", "projectsInProjects"]; //проекты в проектах
-                        urlPool = ["https://rsv.ru/portal/competitions/contests/1/1", "https://rsv.ru/portal/competitions/events/1/27", "https://rsv.ru/portal/competitions/internship/1/7"];
-                        message = "";
-                        type = "changeButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);
-                        break;
-                    }
-
+                    
                     case 'learning' :{
-                        idPool = ["online_courses", "ofline_events", "webinar"];
-                        urlPool = ["https://rsv.ru/portal/edu/courses/1/543", "https://rsv.ru/portal/edu/events", "https://rsv.ru/portal/edu/webinars/1/141"];
-                        message = "";
+                        previousId = ["sendWelcome"];
+                        idPool = ["online_courses", "ofline_events", "webinar", "return"];
                         type = "changeButtons";
                         source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);
+                        util.createResponseFAQ(type, source, idPool);
                         break;
                     }
-
-                    case 'successStories' :{
-                        urlPool = ["https://rsv.ru/portal/main/examples"];
-                        message = "";
-                        type = "finishButtons";
+                    
+                    case 'projects' :{ //внешние проекты
+                        previousId = ["sendWelcome"];
+                        idPool = ["competitions", "events", "projectsInProjects", "return"]; //проекты в проектах
+                        type = "changeButtons";
                         source = "faq";
-                        util.createResponse(type, message, source);
+                        util.createResponseFAQ(type, source, idPool);
                         break;
                     }
 
                     case 'helpOthers' :{
-                        idPool = ["https://rsv.ru/mentoring", "https://добровольцыроссии.рф", "https://мечтайсомной.рф"];
-                        urlPool = ["https://rsv.ru/portal/main/gains"];
-                        message = "";
+                        previousId = ["sendWelcome"];
+                        idPool = ["mentorProgramm", "russianVolounteer", "dreamWithMe", "return"];
                         type = "changeButtons";
                         source = "faq";
-                        util.createResponse(type, message, source);
+                        util.createResponseFAQ(type, source, idPool);
                         break;
                     }
 
-                    case 'shareExperience' : {
-                        type = "finishButton";
-                        source = "bot";
-                        util.createResponse(type, message, source);
+                    case 'lkNavigation' :{
+                        previousId = ["sendWelcome"];
+                        idPool = ["whereToInputSpecial", "howToSetSkills", "return"];
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponseFAQ(type, source, idPool);
                         break;
                     }
 
-                    case 'charityProject' : {
-                        type = "finishButton";
-                        source = "bot";
-                        util.createResponse(type, message, source);
-                        break;
-                    }
-
-                    case 'shareExperience' : {
-                        type = "finishButton";
-                        source = "bot";
-                        util.createResponse(type, message, source);
+                    case 'support' : {
+                        previousId = ["sendWelcome"];
+                        idPool = ["return"];
+                        type = "feedbackInput";
+                        source = 'faq';
+                        util.createResponseFAQ(type, source, idPool);
                         break;
                     }
 
                     case 'competitions' : {
-                        idPool = [allPossibleStuff.competitions[0].name, allPossibleStuff.competitions[1].name, allPossibleStuff.competitions[2].name, allPossibleStuff.competitions[3].name, allPossibleStuff.competitions[4].name];
-                        urlPool = [allPossibleStuff.competitions[0].url, allPossibleStuff.competitions[1].url, allPossibleStuff.competitions[2].url, allPossibleStuff.competitions[3].url, allPossibleStuff.competitions[4].url];
-                        message = "";
+                        previousId = ["competitions", "events", "projectsInProjects", "return"];
+                        idPool = ["myFirstBuisness", "tvoyHod", "leadersOfDigital", "careerTime", "bolshayaPeremena", "return"];
                         type = "changeButtons";
                         source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);
+                        util.createResponseFAQ(type,source, idPool);
                         break;
                     }
 
-                    case 'events' : {
-                        idPool = [allPossibleStuff.events[0].name, allPossibleStuff.events[1].name, allPossibleStuff.events[2].name, allPossibleStuff.events[3].name];
-                        urlPool = [allPossibleStuff.events[0].url, allPossibleStuff.events[1].url, allPossibleStuff.events[2].url, allPossibleStuff.events[3].url];
-                        message = "";
-                        type = "changeButtons";
+                    case 'leadersOfDigital' : {
+                        previousId = ["myFirstBuisness", "tvoyHod", "leadersOfDigital", "careerTime", "bolshayaPeremena", "return"];
+                        urlPool = ["https://leadersofdigital.ru/faq"];
+                        idPool = ["return"]; 
+                        type = "showUrls";
                         source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);
+                        util.createResponseFAQ(type, source, idPool, urlPool);
                         break;
                     }
 
-                    case 'projectsInProjects' : { //внутренние проекты
-                        idPool = [allPossibleStuff.projects[0].name, allPossibleStuff.projects[1].name, allPossibleStuff.projects[2].name];
-                        urlPool = [allPossibleStuff.projects[0].url, allPossibleStuff.projects[1].url, allPossibleStuff.projects[2].url];
-                        message = "";
-                        type = "changeButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);
+                    case 'return': {
+                        console.log(previousId);
+                        if (previousId[0] === "sendWelcome"){
+                            type = "previous";
+                            idPool = ["progressTrack", "projects", "learning", "helpOthers", "lkNavigation", "support"];
+                            source  = "faq";
+                            util.createResponseFAQ(type, source, idPool);
+                        } else {
+                            idPool = previousId;
+                            type = "previous";
+                            source = "faq";
+                            util.createResponseFAQ(type, source, idPool);
+                        }
                         break;
-                    }
-
-                    case 'testsMap' : {
-                        idPool = [allPossibleStuff.testsMap[0].name, allPossibleStuff.testsMap[1].name, allPossibleStuff.testsMap[2].name];
-                        urlPool = [allPossibleStuff.testsMap[0].url, allPossibleStuff.testsMap[1].url, allPossibleStuff.testsMap[2].url];
-                        message = "";
-                        type = "changeButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);                    
-                        break;
-                    }
-
-                    case 'professionsCatalog' : {
-                        idPool = [allPossibleStuff.professionsCatalog[0].name, allPossibleStuff.professionsCatalog[1].name, allPossibleStuff.professionsCatalog[2].name];
-                        urlPool = [allPossibleStuff.professionsCatalog[0].url, allPossibleStuff.professionsCatalog[1].url, allPossibleStuff.professionsCatalog[2].url];
-                        message = "";
-                        type = "changeButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);                    
-                        break;
-                    }
-
-                    case 'boostSkills' : {
-                        idPool = [allPossibleStuff.boostSkills[0].name, allPossibleStuff.boostSkills[1].name, allPossibleStuff.boostSkills[2].name];
-                        urlPool = [allPossibleStuff.boostSkills[0].url, allPossibleStuff.boostSkills[1].url, allPossibleStuff.boostSkills[2].url];
-                        message = "";
-                        type = "changeButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);                    
-                        break;
-                    }
-
-                    case 'beProfessional' : {
-                        idPool = [allPossibleStuff.beProfessional[0].name, allPossibleStuff.beProfessional[1].name, allPossibleStuff.beProfessional[2].name];
-                        urlPool = [allPossibleStuff.beProfessional[0].url, allPossibleStuff.beProfessional[1].url, allPossibleStuff.beProfessional[2].url];
-                        message = "";
-                        type = "changeButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);                    
-                        break;
-                    }
-
-                    /* case 'digitalBreakFAQ' : {
-                        idPool = ["Общие вопросы о конкурсе", "Этап 'регистрация'", "О команде и командообразовании", "Задания на тематические хакатоны"];
-                        //urlPool = [];
-                        message = "";
-                        type = "finishButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source, idPool, urlPool);
-                    }
-
-                    case 'basicQuestions' : {
-                        idPool = ["Что такое хакатон, и как он будет проводиться?", "Этап 'регистрация'", "О команде и командообразовании", "Задания на тематические хакатоны"];
-                        message = "";
-                        type = "finishButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source, idPool);
-                    } */
-    
-                    case 'noAnswer' : {
-                        message = "К сожалению, моих сил не достаточно, чтобы вам помочь. :( Вы можете обратиться за помощью к специалисту службы поддержки, написав свой вопрос в поле снизу.";
-                        type = "noAnswer"; 
-                        source = "faq";
-                        util.createResponse(type, message, source);           
-                        break;         
                     }
     
                     default: {
@@ -524,7 +407,7 @@ wsServer.on('connection', function(socket) {
                     source: ssource
                 }
 
-                console.log(response);
+                //console.log(response);
                 socket.send(JSON.stringify(response));
                 
             } else if(idsPool){
@@ -535,7 +418,7 @@ wsServer.on('connection', function(socket) {
                     idPool: idsPool,
                     source: ssource
                 }
-                console.log(response);
+                //console.log(response);
                 socket.send(JSON.stringify(response));
 
             } else {
@@ -544,12 +427,44 @@ wsServer.on('connection', function(socket) {
                     message: smessage,
                     source: ssource
                 }
-                console.log(response);
+                //console.log(response);
                 socket.send(JSON.stringify(response));
             }
         
             //socket.send(response); раньше был общий
             //но сейчас его подчеркивает
+        },
+        createResponseFAQ(type: string, ssource: string, idsPool?:string[], urlsPool?:string[]) {
+            if(urlsPool){
+
+                let response = {
+                    msgType: type,
+                    urlPool: urlsPool,
+                    idPool: idPool,
+                    source: ssource
+                }
+
+                //console.log(response);
+                socket.send(JSON.stringify(response));
+                
+            } else if(idsPool){
+
+                let response = {
+                    msgType: type,
+                    idPool: idsPool,
+                    source: ssource
+                }
+                //console.log(response);
+                socket.send(JSON.stringify(response));
+
+            } else {
+                let response = {
+                    msgType: type,
+                    source: ssource
+                }
+                //console.log(response);
+                socket.send(JSON.stringify(response));
+            }
         }
     };
 
