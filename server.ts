@@ -223,7 +223,7 @@ wsServer.on('connection', function(socket) {
                 source  = "bot";
                 util.createResponse(type, message, source);
             } else if (data.type === "message") {
-                //мои попытки имеют комменты, так что есчо стираем
+               
                 switch (data.buttonId) {
 
                     case 'iAmRegistered' :{
@@ -288,7 +288,7 @@ wsServer.on('connection', function(socket) {
                 source  = "bot";
                 util.createResponse(type, message, source);
             } else if (data.type === "message") {
-                //мои попытки имеют комменты, так что есчо стираем
+         
                 switch (data.buttonId) {
 
                     case 'progressTrack' :{
@@ -301,9 +301,9 @@ wsServer.on('connection', function(socket) {
                         break;
                     }
 
-                    case 'projects' :{
-                        idPool = ["competitions", "events", "projects"];
-                        urlPool = [];
+                    case 'projects' :{ //внешние проекты
+                        idPool = ["competitions", "events", "projectsInProjects"]; //проекты в проектах
+                        urlPool = ["https://rsv.ru/portal/competitions/contests/1/1", "https://rsv.ru/portal/competitions/events/1/27", "https://rsv.ru/portal/competitions/internship/1/7"];
                         message = "";
                         type = "changeButtons";
                         source = "faq";
@@ -313,7 +313,7 @@ wsServer.on('connection', function(socket) {
 
                     case 'learning' :{
                         idPool = ["online_courses", "ofline_events", "webinar"];
-                        urlPool = [];
+                        urlPool = ["https://rsv.ru/portal/edu/courses/1/543", "https://rsv.ru/portal/edu/events", "https://rsv.ru/portal/edu/webinars/1/141"];
                         message = "";
                         type = "changeButtons";
                         source = "faq";
@@ -322,6 +322,7 @@ wsServer.on('connection', function(socket) {
                     }
 
                     case 'successStories' :{
+                        urlPool = ["https://rsv.ru/portal/main/examples"];
                         message = "";
                         type = "finishButtons";
                         source = "faq";
@@ -330,6 +331,7 @@ wsServer.on('connection', function(socket) {
                     }
 
                     case 'helpOthers' :{
+                        urlPool = ["https://rsv.ru/portal/main/gains"];
                         message = "";
                         type = "finishButtons";
                         source = "faq";
@@ -339,13 +341,65 @@ wsServer.on('connection', function(socket) {
 
                     case 'competitions' : {
                         idPool = [allPossibleStuff.competitions[0].name, allPossibleStuff.competitions[1].name, allPossibleStuff.competitions[2].name, allPossibleStuff.competitions[3].name, allPossibleStuff.competitions[4].name];
-                        urlPool = [allPossibleStuff.competitions[0].url, allPossibleStuff.competitions[1].url, allPossibleStuff.competitions[2].url, allPossibleStuff.competitions[3].url, allPossibleStuff.competitions[4].url]; //первый это цифровой прорыв
-                        //куда отправлять? на дополнительную информацию
-                        //или сразу на faq? сейчас отправлю на faq
+                        urlPool = [allPossibleStuff.competitions[0].url, allPossibleStuff.competitions[1].url, allPossibleStuff.competitions[2].url, allPossibleStuff.competitions[3].url, allPossibleStuff.competitions[4].url];
                         message = "";
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);
+                    }
+
+                    case 'events' : {
+                        idPool = [allPossibleStuff.events[0].name, allPossibleStuff.events[1].name, allPossibleStuff.events[2].name, allPossibleStuff.events[3].name];
+                        urlPool = [allPossibleStuff.events[0].url, allPossibleStuff.events[1].url, allPossibleStuff.events[2].url, allPossibleStuff.events[3].url];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);
+                    }
+
+                    case 'projectsInProjects' : { //внутренние проекты
+                        idPool = [allPossibleStuff.projects[0].name, allPossibleStuff.projects[1].name, allPossibleStuff.projects[2].name];
+                        urlPool = [allPossibleStuff.projects[0].url, allPossibleStuff.projects[1].url, allPossibleStuff.projects[2].url];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);
+                    }
+
+                    case 'testsMap' : {
+                        idPool = [allPossibleStuff.testsMap[0].name, allPossibleStuff.testsMap[1].name, allPossibleStuff.testsMap[2].name];
+                        urlPool = [allPossibleStuff.testsMap[0].url, allPossibleStuff.testsMap[1].url, allPossibleStuff.testsMap[2].url];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);                    
+                    }
+
+                    case 'professionsCatalog' : {
+                        idPool = [allPossibleStuff.professionsCatalog[0].name, allPossibleStuff.professionsCatalog[1].name, allPossibleStuff.professionsCatalog[2].name];
+                        urlPool = [allPossibleStuff.professionsCatalog[0].url, allPossibleStuff.professionsCatalog[1].url, allPossibleStuff.professionsCatalog[2].url];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);                    
+                    }
+
+                    case 'boostSkills' : {
+                        idPool = [allPossibleStuff.boostSkills[0].name, allPossibleStuff.boostSkills[1].name, allPossibleStuff.boostSkills[2].name];
+                        urlPool = [allPossibleStuff.boostSkills[0].url, allPossibleStuff.boostSkills[1].url, allPossibleStuff.boostSkills[2].url];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);                    
+                    }
+
+                    case 'beProfessional' : {
+                        idPool = [allPossibleStuff.beProfessional[0].name, allPossibleStuff.beProfessional[1].name, allPossibleStuff.beProfessional[2].name];
+                        urlPool = [allPossibleStuff.beProfessional[0].url, allPossibleStuff.beProfessional[1].url, allPossibleStuff.beProfessional[2].url];
+                        message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source, idPool, urlPool);                    
                     }
 
                     /* case 'digitalBreakFAQ' : {
