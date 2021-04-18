@@ -339,6 +339,12 @@ wsServer.on('connection', function(socket) {
                         break;
                     }
 
+                    case 'support' : {
+                        type = "finishButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source);
+                    }
+
                     case 'competitions' : {
                         idPool = [allPossibleStuff.competitions[0].name, allPossibleStuff.competitions[1].name, allPossibleStuff.competitions[2].name, allPossibleStuff.competitions[3].name, allPossibleStuff.competitions[4].name];
                         urlPool = [allPossibleStuff.competitions[0].url, allPossibleStuff.competitions[1].url, allPossibleStuff.competitions[2].url, allPossibleStuff.competitions[3].url, allPossibleStuff.competitions[4].url];
