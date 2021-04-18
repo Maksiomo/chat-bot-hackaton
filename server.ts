@@ -214,7 +214,7 @@ wsServer.on('connection', function(socket) {
 
         let data = JSON.parse(income);
 
-        //console.log(income);
+        console.log(data);
 
         if (data.source === "bot") {
             if (data.type === "welcome") {
@@ -227,7 +227,7 @@ wsServer.on('connection', function(socket) {
                 switch (data.buttonId) {
 
                     case 'iAmRegistered' :{
-                        idPool = ["goFotIt"];
+                        idPool = ["goForIt"];
                         message = "Отлично, теперь давайте как я поищу для вас что нибудь интересное...";
                         type = "changeButtons";
                         source = "bot";
@@ -238,10 +238,14 @@ wsServer.on('connection', function(socket) {
                     case 'goForIt' :{
                         let skillPool = serverUtil.createStuffPool(testUser.skills, allPossibleStuff);
                         //console.log(skillPool);
+                        let i = Math.floor(Math.random()*(16));
+                        idPool=["goForIt"];
                         urlPool=[];
-                        for (let skill of skillPool) {
-                            urlPool.push(skill.url);
-                        }
+                        urlPool.push(skillPool[i].url);
+                        console.log(urlPool);
+                        message = "Вот что я смог найти, хотите найду вам еще что нибудь подходящее?";
+                        type = "showUrls";
+                        util.createResponse(type, message, source, idPool, urlPool);
                     }
     
                     case 'noAnswer' : {
@@ -437,7 +441,8 @@ wsServer.on('connection', function(socket) {
                 let response = {
                     msgType: type,
                     message: smessage, 
-                    urlPool: urlsPool
+                    urlPool: urlsPool,
+                    source: ssource
                 }
                 socket.send(JSON.stringify(response));
                 
@@ -446,16 +451,17 @@ wsServer.on('connection', function(socket) {
                 let response = {
                     msgType: type,
                     message: smessage,
-                    idPool: idsPool
+                    idPool: idsPool,
+                    source: ssource
                 }
                 socket.send(JSON.stringify(response));
 
             } else {
                 let response = {
                     msgType: type,
-                    message: smessage
+                    message: smessage,
+                    source: ssource
                 }
-
                 socket.send(JSON.stringify(response));
             }
         
