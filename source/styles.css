@@ -59,11 +59,11 @@ img#exit{
     padding: 5px;
     border-top: solid 0px black;
     border-bottom: solid 0px black;
-} 
+}  
 #faqChat {
     overflow: auto;
     width: 290px;
-    height: 285px;
+    height: 375px;
     padding: 5px;
     border-top: solid 0px black;
     border-bottom: solid 0px black;
@@ -75,7 +75,43 @@ img#exit{
     padding: 5px;
     border-top: solid 0px black;
     border-bottom: solid 0px black;
-} 
+}
+.faqSemiButtonContainer {   
+    overflow: clip;
+    width: 265px;
+    height: 45px;
+    padding: 5px;
+}
+.faqButtonLeft {
+    overflow: auto;
+    position: fixed;
+    margin-left: 0px;
+    left: 15px;
+    width: 125px;
+    height: 40px;
+    border: 1px solid #979797d5;
+    background-color: #EFF3F6;
+    border-radius: 8px;
+    padding: 3px;
+    margin: 5px 0;
+    font-family: "ProximaNovaRegular";
+    font-size: 14px;
+}
+.faqButtonRight {
+    overflow: auto;
+    position: fixed;
+    margin-right: 0px;
+    left: 155px;
+    width: 125px;
+    height: 40px;
+    border: 1px solid #979797d5;
+    background-color: #EFF3F6;
+    border-radius: 8px;
+    padding: 3px;
+    margin: 5px 0;
+    font-family: "ProximaNovaRegular";
+    font-size: 14px;
+}
 .userMessage {
     overflow: auto;
     border: 1px solid #979797d5;
@@ -115,15 +151,15 @@ img#exit{
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     background-color: #FFFFFF;
-}
+}/*
 #faqButtonContainer {
     width: 290px;
-    height: 90px;
+    height: 375px;
     padding: 5px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    background-color: #ffffff;
-}
+    background-color: #FFFFFF;
+}*/
 #botButtonContainer {
     width: 290px;
     height: 90px;
