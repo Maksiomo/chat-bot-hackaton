@@ -285,7 +285,7 @@ wsServer.on('connection', function(socket) {
             if (data.type === "welcome") {
                 type = "welcome";
                 message = "Приветствую, я Helpy - ваш гид по нашей платформе! Для того чтобы получить доступ ко всем возможностям сайта, прошу вас пройти регистрацию. А если хотите получить от меня пару дельных советов, то укажите также свои компетенции и сферу деятельности.";
-                source  = "bot";
+                source  = "faq";
                 util.createResponse(type, message, source);
             } else if (data.type === "message") {
          
@@ -331,10 +331,41 @@ wsServer.on('connection', function(socket) {
                     }
 
                     case 'helpOthers' :{
+                        idPool = ["https://rsv.ru/mentoring", "https://добровольцыроссии.рф", "https://мечтайсомной.рф"];
                         urlPool = ["https://rsv.ru/portal/main/gains"];
                         message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'lk' : {
+                        idPool = [];
+                        urlPool = [];
                         type = "finishButtons";
                         source = "faq";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'shareExperience' : {
+                        type = "finishButton";
+                        source = "bot";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'charityProject' : {
+                        type = "finishButton";
+                        source = "bot";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'shareExperience' : {
+                        type = "finishButton";
+                        source = "bot";
                         util.createResponse(type, message, source);
                         break;
                     }
@@ -346,6 +377,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);
+                        break;
                     }
 
                     case 'events' : {
@@ -355,6 +387,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);
+                        break;
                     }
 
                     case 'projectsInProjects' : { //внутренние проекты
@@ -364,6 +397,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);
+                        break;
                     }
 
                     case 'testsMap' : {
@@ -373,6 +407,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);                    
+                        break;
                     }
 
                     case 'professionsCatalog' : {
@@ -382,6 +417,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);                    
+                        break;
                     }
 
                     case 'boostSkills' : {
@@ -391,6 +427,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);                    
+                        break;
                     }
 
                     case 'beProfessional' : {
@@ -400,6 +437,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);                    
+                        break;
                     }
 
                     /* case 'digitalBreakFAQ' : {
@@ -460,6 +498,8 @@ wsServer.on('connection', function(socket) {
                     idPool: idPool,
                     source: ssource
                 }
+
+                console.log(response);
                 socket.send(JSON.stringify(response));
                 
             } else if(idsPool){
@@ -470,6 +510,7 @@ wsServer.on('connection', function(socket) {
                     idPool: idsPool,
                     source: ssource
                 }
+                console.log(response);
                 socket.send(JSON.stringify(response));
 
             } else {
@@ -478,6 +519,7 @@ wsServer.on('connection', function(socket) {
                     message: smessage,
                     source: ssource
                 }
+                console.log(response);
                 socket.send(JSON.stringify(response));
             }
         
