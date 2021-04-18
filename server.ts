@@ -285,7 +285,7 @@ wsServer.on('connection', function(socket) {
             if (data.type === "welcome") {
                 type = "welcome";
                 message = "Приветствую, я Helpy - ваш гид по нашей платформе! Для того чтобы получить доступ ко всем возможностям сайта, прошу вас пройти регистрацию. А если хотите получить от меня пару дельных советов, то укажите также свои компетенции и сферу деятельности.";
-                source  = "bot";
+                source  = "faq";
                 util.createResponse(type, message, source);
             } else if (data.type === "message") {
          
@@ -460,6 +460,8 @@ wsServer.on('connection', function(socket) {
                     idPool: idPool,
                     source: ssource
                 }
+
+                console.log(response);
                 socket.send(JSON.stringify(response));
                 
             } else if(idsPool){
@@ -470,6 +472,7 @@ wsServer.on('connection', function(socket) {
                     idPool: idsPool,
                     source: ssource
                 }
+                console.log(response);
                 socket.send(JSON.stringify(response));
 
             } else {
@@ -478,6 +481,7 @@ wsServer.on('connection', function(socket) {
                     message: smessage,
                     source: ssource
                 }
+                console.log(response);
                 socket.send(JSON.stringify(response));
             }
         
