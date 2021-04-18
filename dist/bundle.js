@@ -139,6 +139,29 @@ function getContentById(id) {
         case 'goForIt': {return 'Найди-ка мне что нибудь'};
         case 'goEvenFurther': {return 'Найди-ка мне ещё что нибудь'};
         case 'return':{return 'Вернуться'};
+
+        case 'progressTrack': {return 'О Треке Развития'};
+        case 'projects': {return 'О наших проектах'};
+        case 'learning': {return 'О наших курсах и вебинарах'};
+        case 'helpOthers': {return 'О помощи другим'};
+        case 'lkNavigation': {return 'Об устройстве личного кабинета'};
+        case 'support': {return 'Бот_нейм не смог ответить на ваш вопрос'};
+        
+        case 'testsMap': {return 'О профдиагностике'};
+        case 'professionsCatalog': {return 'О каталоге профессий'};
+        case 'boostSkills': {return 'О каталоге профессий'}
+        beProfessional
+        competitions
+        events
+        projectsInProjects
+        online_courses
+        ofline_events
+        webinar
+        whereToInputSpecial
+        howToSetSkills
+        mentorProgramm
+        russianVolounteer
+        dreamWithMe 
         default:{return 'Invalid button'};
     };
 };
