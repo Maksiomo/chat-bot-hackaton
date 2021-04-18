@@ -1,12 +1,24 @@
 #widget {
+    position: absolute;
     width: 300px;
     height: 500px;
     padding: 0px;
     border: solid 0px black;
-    background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     border-radius: 8px;
+    /*Изменил*/
+    right: 15px;
+    bottom: 105px;
 } 
+
+#botOpen{
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    width: 80px;
+    height: 80px; 
+}
+
 #header {
     width: 300px;
     height: 60px;
@@ -17,8 +29,10 @@
 
 #header img {
     position: absolute;
-    left: 15px;
-    top: 15px;
+    width: 45px;
+    height: 45px;
+    left: 7px;
+    top: 7px;
 }
 
 #header header-text {
@@ -31,8 +45,10 @@
 }
 
 img#exit{
-    left: 275px;
-    top: 15px;
+    width: 15px;
+    height: 15px;
+    left: 280px;
+    top: 5px;
 }
 
 #chat {
@@ -40,28 +56,28 @@ img#exit{
     width: 290px;
     height: 330px;
     padding: 5px;
-    background-color: #EFF3F6;
     border-top: solid 0px black;
     border-bottom: solid 0px black;
 }  
+
 #faqChat {
     overflow: auto;
     width: 290px;
     height: 375px;
     padding: 5px;
-    background-color: #FFFFFF;
     border-top: solid 0px black;
     border-bottom: solid 0px black;
 } 
+
 #botChat {
     overflow: auto;
     width: 290px;
     height: 285px;
     padding: 5px;
-    background-color: #EFF3F6;
     border-top: solid 0px black;
     border-bottom: solid 0px black;
 }
+
 .faqSemiButtonContainer {   
     overflow: clip;
     width: 265px;

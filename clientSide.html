@@ -33,10 +33,17 @@
     }
   </script>
 </head>
+<style>
+    body { background: url(./images/backGround.png); }
+</style>
 <body>
+    <img id="botOpen" src="./images/botIcon.png" alt="error="> 
+    <style>
+        #widget { background:#f7fbfc url(./images/siteBackground.png);}
+    </style>
     <div id="widget" class="container">            
         <div id="header" class="container">
-            <img src="./images/bot-avater.png" alt="error="> 
+            <img src="./images/botIcon.png" alt="error="> 
             <header-text text="header-text">
                 <p>Helpy - Навигатор по сайту</p>
             </header-text>
@@ -53,11 +60,18 @@
         
         <!-- Tab content -->        
         <div id="botTab" class="tabcontent">
+            
+            <style>
+                .faqChat { background:#f7fbfc url(./images/siteBackground.png);}
+            </style>
             <div id="botChat" class="container"></div>  
             <div id="botButtonContainer" class="container"></div>
         </div>
 
         <div id="faqTab" class="tabcontent">
+            <style>
+                .botChat { background:#f7fbfc url(./images/siteBackground.png);}
+            </style>
             <div id="faqChat" class="container">
                 <div class="container faqSemiButtonContainer">
                     <div class="container faqButtonLeft">

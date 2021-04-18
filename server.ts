@@ -331,18 +331,43 @@ wsServer.on('connection', function(socket) {
                     }
 
                     case 'helpOthers' :{
+                        idPool = ["https://rsv.ru/mentoring", "https://добровольцыроссии.рф", "https://мечтайсомной.рф"];
                         urlPool = ["https://rsv.ru/portal/main/gains"];
                         message = "";
+                        type = "changeButtons";
+                        source = "faq";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'lk' : {
+                        idPool = [];
+                        urlPool = [];
                         type = "finishButtons";
                         source = "faq";
                         util.createResponse(type, message, source);
                         break;
                     }
 
-                    case 'support' : {
-                        type = "finishButtons";
-                        source = "faq";
+                    case 'shareExperience' : {
+                        type = "finishButton";
+                        source = "bot";
                         util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'charityProject' : {
+                        type = "finishButton";
+                        source = "bot";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'shareExperience' : {
+                        type = "finishButton";
+                        source = "bot";
+                        util.createResponse(type, message, source);
+                        break;
                     }
 
                     case 'competitions' : {
@@ -352,6 +377,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);
+                        break;
                     }
 
                     case 'events' : {
@@ -361,6 +387,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);
+                        break;
                     }
 
                     case 'projectsInProjects' : { //внутренние проекты
@@ -370,6 +397,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);
+                        break;
                     }
 
                     case 'testsMap' : {
@@ -379,6 +407,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);                    
+                        break;
                     }
 
                     case 'professionsCatalog' : {
@@ -388,6 +417,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);                    
+                        break;
                     }
 
                     case 'boostSkills' : {
@@ -397,6 +427,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);                    
+                        break;
                     }
 
                     case 'beProfessional' : {
@@ -406,6 +437,7 @@ wsServer.on('connection', function(socket) {
                         type = "changeButtons";
                         source = "faq";
                         util.createResponse(type, message, source, idPool, urlPool);                    
+                        break;
                     }
 
                     /* case 'digitalBreakFAQ' : {
