@@ -120,6 +120,8 @@ function removeOldButtons(id) {
 function getContentById(id) {
     switch (id) {
         // TODO: прописать новые айдишники для новых кнопок
+        case 'iAmRegistered':{return 'Я завершил регистрацию'};
+        case 'goForIt': {return 'Найди-ка мне что нибудь'};
         case 'return':{return 'Вернуться'};
         default:{return 'Invalid button'};
     };
@@ -128,8 +130,8 @@ function getContentById(id) {
 * Метод, обновляющий контейнер с кнопками
 * Принимает id кнопок, которые необходимо создать
 */
-function updateButtons(idPool) {
-    removeOldButtons();
+function updateButtons(idPool, containerID) {
+    removeOldButtons(containerID);
     for (var _i = 0, idPool_1 = idPool; _i < idPool_1.length; _i++) {
         var id = idPool_1[_i];
         var btn_1 = new Button(id, getContentById(id));
@@ -220,7 +222,7 @@ connection.onopen = function(event) {
         type: "welcome",
         source: "faq"
     }
-    connection.send(JSON.stringify(welcomeMsgBot));
+    //connection.send(JSON.stringify(welcomeMsgFAQ));
 };
 /*
 * Слушатель сообщений от сервера
@@ -231,6 +233,8 @@ connection.onmessage = function (income) {
 
     let message = JSON.parse(income.data);
 
+    console.log(message);
+
     if (message.source === "bot") {
         if (message.msgType === "welcome"){
             addMessage(message.message, 'bot');
@@ -239,14 +243,14 @@ connection.onmessage = function (income) {
             for (var i = 0; i < message.idPool.length; i++) {
                 idPool[i] = message.idPool[i];
             };
-            console.log(idPool);
             addMessage(message.message, 'bot');
-            updateButtons(idPool);
+            updateButtons(idPool, buttonsDiv);
         } else if (message.msgType === "showUrls"){
             addMessage(message.message, "bot");
             for (url of message.urlPool) {
                 addMessage(url, "bot");
             }
+            updateButtons(message.idPool, buttonsDiv);
         } else if (message.msgType === "return"){
             // TODO: напиши меня!!!!
         }  
