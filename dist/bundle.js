@@ -11,7 +11,7 @@ var faqDiv = document.getElementById('faqChat');
 // контейнер для кнопок FAQ
 //var buttonsFaq = document.getElementById('faqButtonContainer');
 //Переменная, хранящая токен пользователя
-var token = "token";
+//var token = "token";
 //Создание вебсокета
 var connection = new WebSocket('ws://localhost:3000');
 /*
@@ -47,6 +47,21 @@ function addMessage(message, author) {
         chatDiv.appendChild(newDiv);
     };
 };
+
+// метод, добавляющий рабочую ссылку в контейнер chatDiv
+// принимает сообщение и автора
+function addUrl (message) {
+    console.log(message.url);
+    let blank = "_blank";
+    var newDiv = document.createElement('div');
+    newDiv.setAttribute("class", "container botMessage");
+    newDiv.innerHTML = "<a href =" + message.url +" target = "+ blank +">" + message.name + "</a>";
+    console.log(newDiv);
+    if (chatDiv) {
+        chatDiv.appendChild(newDiv);
+    };
+}
+
 
 /*
     Метод, добавляющий сообщения в контейнер faqDiv
@@ -122,6 +137,7 @@ function getContentById(id) {
         // TODO: прописать новые айдишники для новых кнопок
         case 'iAmRegistered':{return 'Я завершил регистрацию'};
         case 'goForIt': {return 'Найди-ка мне что нибудь'};
+        case 'goEvenFurther': {return 'Найди-ка мне ещё что нибудь'};
         case 'return':{return 'Вернуться'};
         default:{return 'Invalid button'};
     };
@@ -130,11 +146,11 @@ function getContentById(id) {
 * Метод, обновляющий контейнер с кнопками
 * Принимает id кнопок, которые необходимо создать
 */
-function updateButtons(idPool, containerID) {
+function updateButtons(idPool, containerID, source) {
     removeOldButtons(containerID);
     for (var _i = 0, idPool_1 = idPool; _i < idPool_1.length; _i++) {
         var id = idPool_1[_i];
-        var btn_1 = new Button(id, getContentById(id));
+        var btn_1 = new Button(id, getContentById(id), source);
         btn_1.event();
     };
 };
@@ -244,13 +260,15 @@ connection.onmessage = function (income) {
                 idPool[i] = message.idPool[i];
             };
             addMessage(message.message, 'bot');
-            updateButtons(idPool, buttonsDiv);
+            updateButtons(idPool, buttonsDiv, 'bot');
         } else if (message.msgType === "showUrls"){
             addMessage(message.message, "bot");
-            for (url of message.urlPool) {
-                addMessage(url, "bot");
-            }
-            updateButtons(message.idPool, buttonsDiv);
+            addUrl(message.urlPool);
+            var idPool = [];
+            for (var i = 0; i < message.idPool.length; i++) {
+                idPool[i] = message.idPool[i];
+            };
+            updateButtons(idPool, buttonsDiv, 'bot');
         } else if (message.msgType === "return"){
             // TODO: напиши меня!!!!
         }  

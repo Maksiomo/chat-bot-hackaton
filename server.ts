@@ -129,7 +129,7 @@ const serverUtil ={
 }
 
 let idPool: string[];
-let urlPool: string[];
+let urlPool: any;
 let type:string;
 let message: string;
 let source: string;
@@ -214,7 +214,7 @@ wsServer.on('connection', function(socket) {
 
         let data = JSON.parse(income);
 
-        console.log(data);
+        //console.log(data);
 
         if (data.source === "bot") {
             if (data.type === "welcome") {
@@ -237,15 +237,30 @@ wsServer.on('connection', function(socket) {
 
                     case 'goForIt' :{
                         let skillPool = serverUtil.createStuffPool(testUser.skills, allPossibleStuff);
-                        //console.log(skillPool);
                         let i = Math.floor(Math.random()*(16));
-                        idPool=["goForIt"];
-                        urlPool=[];
-                        urlPool.push(skillPool[i].url);
-                        console.log(urlPool);
+                        idPool=["goEvenFurther"];
+                        urlPool = {
+                            url: skillPool[i].url,
+                            name: skillPool[i].name
+                        };
                         message = "Вот что я смог найти, хотите найду вам еще что нибудь подходящее?";
                         type = "showUrls";
                         util.createResponse(type, message, source, idPool, urlPool);
+                        break;
+                    }
+
+                    case 'goEvenFurther' :{
+                        let skillPool = serverUtil.createStuffPool(testUser.skills, allPossibleStuff);
+                        let i = Math.floor(Math.random()*(16));
+                        idPool=["goEvenFurther"];
+                        urlPool = {
+                            url: skillPool[i].url,
+                            name: skillPool[i].name
+                        };
+                        message = "Вот что я смог найти, хотите найду вам еще что нибудь подходящее?";
+                        type = "showUrls";
+                        util.createResponse(type, message, source, idPool, urlPool);
+                        break;
                     }
     
                     case 'noAnswer' : {
@@ -388,6 +403,7 @@ wsServer.on('connection', function(socket) {
                     msgType: type,
                     message: smessage, 
                     urlPool: urlsPool,
+                    idPool: idPool,
                     source: ssource
                 }
                 socket.send(JSON.stringify(response));
