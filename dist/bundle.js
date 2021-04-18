@@ -72,7 +72,7 @@ function addUrl (message) {
         let blank = "_blank";
         var newDiv = document.createElement('div');
             newDiv.setAttribute("class", "container botMessage");
-            newDiv.innerHTML = "<a href =" + message +" target = "+ blank +">FAQ Циврового Прорыва</a>";;
+            newDiv.innerHTML = "<a href =" + message +" target = "+ blank +">FAQ Циврового Прорыва</a><br>";
         if (faqDiv) {
             faqDiv.appendChild(newDiv);
         };
@@ -87,10 +87,11 @@ function addUrl (message) {
     function createHTMLButtonFAQ(id, content) {
         var newDiv = document.createElement('button');
         newDiv.setAttribute("id", id);
-        newDiv.setAttribute("class", 'container button');
+        newDiv.setAttribute("class", 'container button newW');
         newDiv.innerHTML = content;
         if (faqDiv) {
             faqDiv.appendChild(newDiv);
+            faqDiv.appendChild(document.createElement('br'));
         };
         return newDiv;
     };

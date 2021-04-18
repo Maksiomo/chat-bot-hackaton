@@ -34,14 +34,14 @@ let data = [
         userName,
         messageContent: 'test',
         sendTime: '2021-04-17T17:45:04.123123',
-        responseMessage: 'Lorem',
+        responseMessage: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique nostrum provident, rem repellendus sed ipsam necessitatibus tenetur odio eaque quibusdam nam laboriosam commodi expedita illum mollitia neque earum saepe modi.',
         responseUser: 'Igor'
     },
     {
         messageId: 3,
         userId: 3,
         userName: 'kek',
-        messageContent: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique nostrum provident, rem repellendus sed ipsam necessitatibus tenetur odio eaque quibusdam nam laboriosam commodi expedita illum mollitia neque earum saepe modi.',
+        messageContent: 'Lorem',
         sendTime: '2021-04-17T16:45:04.123123'
     }
 ];
@@ -110,7 +110,7 @@ function pinResponse(userName, message) {
     messageSpan.setAttribute('class', 'answerContent');
     messageSpan.setAttribute('id', 'messageReplyInput');
     messageSpan.innerText = message;
-    let deleteBtn = document.createElement('span');
+    let deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class', 'cancelreplyChatMessage');
     deleteBtn.innerHTML = '&#10006';
     deleteBtn.addEventListener('click', (ev) => {
@@ -196,6 +196,7 @@ function sendMessage(userId, messageContent, responseMessage, responseUser) {
     };
     data.push(message);
     chatBody.appendChild(createMessageFromInterface(message));
+    chatBody.scrollTop = chatBody.scrollHeight;
 }
 // Обработка нажатия кнопки
 function clickSendMessage() {
