@@ -1,13 +1,59 @@
+.tl-width{
+    width: 74.25px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .chatTab{
-    height: calc(500px - 116px);
+    height: calc(500px - 111px);
     padding-right: 0px;
     padding-left: 0px;
+    padding-bottom: 0;
+}
+
+.listChatTopics{
+    height: calc(500px - 133px);
+}
+
+.btnChatTopics{
+    width: 100%;
+    height: 35px;
+    border: 0px;
+    border-radius: 10px;
+    margin: 5px 5px 5px 0px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #FFFFFF;
+    background-color: #2663A0;
+}
+
+.btnVoiceTopics{
+    background-color: #a02626;
+}
+
+.btnBack{
+    height: 25px;
+    border: 0px;
+    border-radius: 14px;
+    font-size: 16px;
+    margin-left: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #FFFFFF;
+    background-color: #2663A0;
 }
 
 .chatMessage{
+    display: flex;
+    flex-direction: column;
     padding: 3px 10px 3px 10px;
     margin: 10px 2px 0px 2px;
 }
+
+.chatMessage span{
+    align-self: flex-start;
+    word-break: break-word;
+  }
+
 .yourChatMessage{
     border-radius:20px 20px 0px 20px;
     background-color: #152738;
@@ -19,15 +65,12 @@
     margin-right: 10px;
 }
 
-
-
 .chatTitle{
     height: 30px;
-    margin: 0px 5px 5px 0px;
+    margin: 5px 5px 5px 0px;
     font-size: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #000000;
-    /* float: left; */
 }
 
 .userName{
@@ -38,8 +81,8 @@
     text-overflow: ellipsis
 }
 .messageTime{
-    margin: 5px 5px 5px 5px;
-    font-size: 16px;
+    margin: 0px 5px 5px 5px;
+    font-size: 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #FFFFFF;
 }
@@ -59,9 +102,8 @@
 }
 .replyChatMessage{
     border-left: 3px solid #e6e6e6;
-    /* text-overflow: ellipsis; */
+    margin:5px 0px 5px 5px;
 }
-
 
 .btnAnswer{
     float: right;
@@ -79,12 +121,57 @@
 }
 
 .chatBody{
-    height: calc(100% - 68px - 30px - 12px);
+    height: calc(100% - 109px);
     overflow-y: auto;
-    margin: 6px 0px 6px 0px;
+    margin: 5px 0px 5px 0px;
 }
 
 .chatFooter{
-    height: 68px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    position: relative;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    height: 75px;
+    background: #3874E0;
+    
 }
 
+.cancelreplyChatMessage{
+    position: absolute;
+    top: -1px;
+    right: -12px;
+    width: 23px;
+    padding-left: 0;
+    color: #ffffff;
+}
+
+#underInputReplyChatMessage{
+    position: relative;
+    width: calc(100% - 23px);
+}
+
+#chatInputMessage{
+    position: absolute;
+    bottom: 5px;
+    width: calc(100% - 45px);
+    height: 23px;
+    border: 0px;
+    border-radius: 10px;
+    margin-left: 5px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btnSendMessage{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    height: 26px;
+    border: 0;
+    border-radius: 14px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #000000;
+    background-color: #FFFFFF;
+}

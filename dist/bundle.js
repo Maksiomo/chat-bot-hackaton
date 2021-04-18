@@ -146,11 +146,11 @@ function getContentById(id) {
         case 'helpOthers': {return 'О помощи другим'};
         case 'lkNavigation': {return 'Об устройстве личного кабинета'};
         case 'support': {return 'Бот_нейм не смог ответить на ваш вопрос'};
-        
+
         case 'testsMap': {return 'О профдиагностике'};
         case 'professionsCatalog': {return 'О каталоге профессий'};
         case 'boostSkills': {return 'О каталоге профессий'}
-        beProfessional
+        case 'beProfessional': {return 'О проф. навыках '}
         competitions
         events
         projectsInProjects

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/chat.css">
+
+    <title>Chat</title>
+
+    <script src="./dist/chat.js"></script>
+
+    <script>
+        function openTab(evt, tabName, mainDiv = "tabcontent") {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName(mainDiv);
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+
+            // Если открывают чат
+            if(tabName === "chatTab"){
+                loadMessages();
+                let chatBody = document.getElementById("chatBody");
+                chatBody.scrollTop = chatBody.scrollHeight;
+                
+            } 
+            // Если любые другие вкладки
+            else {
+                clearChatMessages()
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="widget" class="container">
+        <div id="header" class="container">
+            <img src="images/bot-avater.png" alt="error="></imj>
+            <header-text text="header-text">
+                <p>Helpy - Навигатор по сайту</p>
+        </div>
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks tl-width" onclick="openTab(event, 'botTab')">Bot</button>
+            <!-- изменили на chatsTab (вкладка с чатами) -->
+            <button class="tablinks tl-width" onclick="openTab(event, 'chatsTab')">Chat</button>
+            <button class="tablinks tl-width" onclick="openTab(event, 'voiceTab')">Voice</button>
+            <button class="tablinks tl-width" onclick="openTab(event, 'faqTab')">FAQ</button>
+        </div>
+        <!-- Tab content -->
+
+
+    <div id="faqTab" class="tabcontent">
+        <h3>FAQ</h3>
+        <p>This is the tab with the FAQ.</p>
+    </div>
+
+    <div id="botTab" class="tabcontent">
+        <h3>Bot</h3>
+        <p>This is the tab with the Bot.</p>
+    </div>
+
+    <!-- Chat -->
+    <div>
+        <!-- ChatSelect -->
+        <div id="chatsTab" class="tabcontent listChatTopics">
+            <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Общий чат</button></div>
+            <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Конкурсы</button></div>
+            <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Мероприятия</button></div>
+            <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Проекты</button></div>
+            <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Онлайн-курсы</button></div>
+            <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Очные мероприятия</button></div>
+            <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Вебинары</button></div>
+            <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Трек развития</button></div>
+        </div>
+
+        <!-- SelectedChat -->
+        <div id="chatTab" class="tabcontent chatTab" >
+            
+            <div class="chatHeader">
+                <button class="btnBack" onclick="openTab(event, 'chatsTab')">&#11164</button>
+                <span class="chatTitle">Проекты</span>
+            </div>
+
+            <div id="chatBody" class="chatBody"></div>
+
+            <div id='chatFooter' class="chatFooter">
+                <input id='chatInputMessage' type="text">
+                <button class="btnSendMessage" onclick="clickSendMessage()">&#11165</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="voiceTab" class="tabcontent">
+        <div><button class="btnChatTopics btnVoiceTopics">Общий чат</button></div>
+        <div><button class="btnChatTopics btnVoiceTopics">Проекты</button></div>
+        <div><button class="btnChatTopics btnVoiceTopics">Обучение</button></div>
+        <div><button class="btnChatTopics btnVoiceTopics">Поддержка</button></div>
+    </div> 
+
+</body>
+
+</html>

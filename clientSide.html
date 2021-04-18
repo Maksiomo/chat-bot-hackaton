@@ -10,28 +10,41 @@
     <style>
     </style>
     <script src="./dist/bundle.js" defer></script>
-    <script> 
-        function openTab(evt, tabName) {
-        // Declare all variables
-        var i, tabcontent, tablinks;
-    
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+    <script src="dist/chat.js"></script>
+    <script>
+        function openTab(evt, tabName, mainDiv = "tabcontent") {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName(mainDiv);
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+
+            // Если открывают чат
+            if(tabName === "chatTab"){
+                loadMessages();
+                let chatBody = document.getElementById("chatBody");
+                chatBody.scrollTop = chatBody.scrollHeight;
+                
+            } 
+            // Если любые другие вкладки
+            else {
+                clearChatMessages()
+            }
         }
-    
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-    
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-  </script>
+    </script>
 </head>
 <style>
     body { background: url(./images/backGround.png); }
@@ -45,17 +58,17 @@
         <div id="header" class="container">
             <img src="./images/botIcon.png" alt="error="> 
             <header-text text="header-text">
-                <p>Helpy - Навигатор по сайту</p>
+                <p>Helpy</p>
             </header-text>
             <img id="exit" src="./images/exitButton.png" alt="error"> 
             </body>
         </div>  
         <!-- Tab links -->
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'botTab')">Bot</button>
-            <button class="tablinks" onclick="openTab(event, 'chatTab')">Chat</button>
-            <button class="tablinks" onclick="openTab(event, 'voiceTab')">Voice</button>
-            <button class="tablinks" onclick="openTab(event, 'faqTab')">FAQ</button>
+            <button class="tablinks tl-width" onclick="openTab(event, 'botTab')">Bot</button>
+            <button class="tablinks tl-width" onclick="openTab(event, 'chatTab')">Chat</button>
+            <button class="tablinks tl-width" onclick="openTab(event, 'voiceTab')">Voice</button>
+            <button class="tablinks tl-width" onclick="openTab(event, 'faqTab')">FAQ</button>
         </div>
         
         <!-- Tab content -->        
@@ -74,29 +87,14 @@
             </style>
             <div id="faqChat" class="container">
                 <div class="container faqSemiButtonContainer">
-                    <div class="container faqButtonLeft">
-                        Invalid button left 1
-                    </div>
-                    <div class="container faqButtonRight">
-                        Invalid button right 1
-                    </div>
+                    
                 </div>
                 
                 <div class="container faqSemiButtonContainer">
-                    <div class="container faqButtonLeft">
-                        Invalid button left 2
-                    </div>
-                    <div class="container faqButtonRight">
-                        Invalid button right 2
-                    </div>
+                    
                 </div>
                 <div class="container faqSemiButtonContainer">
-                    <div class="container faqButtonLeft">
-                        Invalid button left 1
-                    </div>
-                    <div class="container faqButtonRight">
-                        Invalid button right 1
-                    </div>
+                    
                 </div>
                 
             </div>
@@ -104,64 +102,42 @@
         </div>
         
         
-        <div id="chatTab" class="tabcontent chatTab" >
+        <div>
+            <!-- ChatSelect -->
+            <div id="chatsTab" class="tabcontent listChatTopics">
+                <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Общий чат</button></div>
+                <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Конкурсы</button></div>
+                <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Мероприятия</button></div>
+                <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Проекты</button></div>
+                <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Онлайн-курсы</button></div>
+                <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Очные мероприятия</button></div>
+                <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Вебинары</button></div>
+                <div><button class="btnChatTopics" onclick="openTab(event, 'chatTab')">Трек развития</button></div>
+            </div>
     
-            <div class="chatHeader">
-                <button class="btnBack"> &#11164 Назад</button>
-                <span class="chatTitle">Projects</span>
-            </div>
-        
-            <div id="chatBody" class="chatBody">
-                         
-                <div class="chatMessage yourChatMessage">
-                    <div class="messageHeader">
-                        <span class="messageTime">15:50</span>
-                        <button class="btnAnswer"> &#11178 </button>
-                        <div class="replyChatMessage"></div>
-                    </div>
-                    <span class="messageContent">Всем привет!</span>
+            <!-- SelectedChat -->
+            <div id="chatTab" class="tabcontent chatTab" >
+                
+                <div class="chatHeader">
+                    <button class="btnBack" onclick="openTab(event, 'chatsTab')">&#11164</button>
+                    <span class="chatTitle">Проекты</span>
                 </div>
-        
-                <div class="chatMessage otherChatMessage">
-                    <div class="messageHeader">
-                        <span class="userName">Василийfsddf sfsfs sdsdsd sds </span>
-                        <span class="messageTime">15:51</span>
-                        <button class="btnAnswer"> &#11178 </button>
-                        <div class="replyChatMessage"></div>
-                    </div>
-                    <span class="messageContent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptate ipsa, tempora nihil, corporis iusto sunt doloribus ratione unde a perspiciatis dignissimos neque earum aperiam veniam cum harum delectus distinctio?</span>
-                </div>
-        
-                <div class="chatMessage otherChatMessage">
-                    <div class="messageHeader">
-                        <span class="userName">Марина</span>
-                        <span class="messageTime">15:52</span>
-                        <button class="btnAnswer"> &#11178 </button>
-                    </div>
-                    <div class="replyChatMessage">
-                        <span class="userName" style="font-size: 10px;">Олег</span><br>
-                        <span class="answerContent">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem porro, accusantium accusamus atque vitae ad cum, molestias iste harum facere rerum voluptate ipsa perspiciatis necessitatibus sapiente? Quos at explicabo deleniti!</span>
-                    </div>
-                    
-                    <span class="messageContent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde distinctio reiciendis debitis ad voluptas, corrupti autem quam reprehenderit necessitatibus aspernatur obcaecati facere tenetur similique ea optio velit, voluptate eos vitae.</span>
+    
+                <div id="chatBody" class="chatBody"></div>
+    
+                <div id='chatFooter' class="chatFooter">
+                    <input id='chatInputMessage' type="text">
+                    <button class="btnSendMessage" onclick="clickSendMessage()">&#11165</button>
                 </div>
             </div>
-        
-            <div class="chatFooter">
-                <div>
-                    <button class="cancelreplyChatMessage">Отменить &#10060 </button>
-                </div>
-                <input type="text">
-                <button class="emoji"> &#128578 </button>
-                <button class="sendMessage">Send &#11165</button>
-            </div>
-        </div>     
-        
+        </div>
+    
         <div id="voiceTab" class="tabcontent">
-            <h3>Voice</h3>
-            <p>This is the tab with the Voice chat.</p>
-        </div>  
-
+            <div><button class="btnChatTopics btnVoiceTopics">Общий чат</button></div>
+            <div><button class="btnChatTopics btnVoiceTopics">Проекты</button></div>
+            <div><button class="btnChatTopics btnVoiceTopics">Обучение</button></div>
+            <div><button class="btnChatTopics btnVoiceTopics">Поддержка</button></div>
+        </div> 
         
     </div>
 </body>
