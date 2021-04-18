@@ -291,6 +291,40 @@ wsServer.on('connection', function(socket) {
          
                 switch (data.buttonId) {
 
+                    case 'lk' : {
+                        idPool = ["track", "competences", "testing"];
+                        urlPool = ["https://rsv.ru/account/track", "https://rsv.ru/account/competences", "https://rsv.ru/account/testing"];
+                        message = "";
+                        source = "faq";
+                        type = "changeButtons";
+                        util.createResponse(type, message, source, idPool, urlPool);
+                        break;
+                    }
+
+                    case 'track' : {
+                        message = "";
+                        source = "faq";
+                        type = "finishButtons";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'competences' : {
+                        message = "";
+                        source = "faq";
+                        type = "finishButtons";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
+                    case 'testing' : {
+                        message = "";
+                        source = "faq";
+                        type = "finishButtons";
+                        util.createResponse(type, message, source);
+                        break;
+                    }
+
                     case 'progressTrack' :{
                         idPool = ["testsMap", "professionsCatalog", "boostSkills", "beProfessional"];
                         urlPool = [];
@@ -335,15 +369,6 @@ wsServer.on('connection', function(socket) {
                         urlPool = ["https://rsv.ru/portal/main/gains"];
                         message = "";
                         type = "changeButtons";
-                        source = "faq";
-                        util.createResponse(type, message, source);
-                        break;
-                    }
-
-                    case 'lk' : {
-                        idPool = [];
-                        urlPool = [];
-                        type = "finishButtons";
                         source = "faq";
                         util.createResponse(type, message, source);
                         break;
