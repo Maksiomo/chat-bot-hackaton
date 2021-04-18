@@ -238,7 +238,8 @@ connection.onopen = function(event) {
         type: "welcome",
         source: "faq"
     }
-    //connection.send(JSON.stringify(welcomeMsgFAQ));
+    console.log(welcomeMsgFAQ);
+    connection.send(JSON.stringify(welcomeMsgFAQ));
 };
 /*
 * Слушатель сообщений от сервера
@@ -270,7 +271,7 @@ connection.onmessage = function (income) {
             };
             updateButtons(idPool, buttonsDiv, 'bot');
         } else if (message.msgType === "return"){
-            // TODO: напиши меня!!!!
+            // TODO: напиши меня!!!! UPDATE: в принципе можно и не писать 
         }  
         if (chatDiv) {
             chatDiv.scroll({
@@ -286,7 +287,7 @@ connection.onmessage = function (income) {
         } else if (message.msgType === "showUrls") {
 
         } else if (message.msgType === "return") {
-            // TODO: напиши меня тоже!!!!
+            // TODO: напиши меня тоже!!!!   UPDATE: тут в принципе тоже 
         }
     }
     
