@@ -149,19 +149,19 @@ function getContentById(id) {
 
         case 'testsMap': {return 'О профдиагностике'};
         case 'professionsCatalog': {return 'О каталоге профессий'};
-        case 'boostSkills': {return 'О каталоге профессий'}
-        case 'beProfessional': {return 'О проф. навыках '}
-        competitions
-        events
-        projectsInProjects
-        online_courses
-        ofline_events
-        webinar
-        whereToInputSpecial
-        howToSetSkills
-        mentorProgramm
-        russianVolounteer
-        dreamWithMe 
+        case 'boostSkills': {return 'О каталоге профессий'};
+        case 'beProfessional': {return 'О проф. навыках '};
+        case 'competitions': {return 'О наших конкурсах'};
+        case 'events': {return 'О проводимых нами ивентах'};
+        case 'projectsInProjects':{return 'О созданных нами продуктах'};
+        case 'online_courses':{return 'О наших онлайн курсах'};
+        case 'ofline_events':{return 'О наших мероприятиях'};
+        case 'webinar': {return 'О наших вебинарах'};
+        case 'whereToInputSpecial': {return 'Где мне найти расширенный профиль'};
+        case 'whyToSetSkills': {return 'Зачем мне нужно заполнять навыки и компетенции'};
+        case 'mentorProgramm': {return 'О менторской программе'};
+        case 'russianVolounteer': {return "О 'Добровольце России'"};
+        case 'dreamWithMe' : {return "О проекте 'Мечтай со мной'"};
         default:{return 'Invalid button'};
     };
 };
